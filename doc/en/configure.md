@@ -1,4 +1,8 @@
-# Configuration
+<div align="center">
+
+# 🛡️ Configuration 🛡️
+
+</div>
 
 **English** · [Français](../fr/configure.md) · [Deutsch](../de/configure.md) · [Español](../es/configure.md)
 
@@ -14,16 +18,13 @@
 - [Monitored zones](zones.md)
 - [VPN](vpn.md)
 
-`sudo ./liltress configure` asks the questions below, writes `global.conf` mode `644` and `secrets.conf` mode `600` as root, then starts `script/run.sh`.
+---
 
-The first question chooses the language.
-
-The value is `LANGUAGE`.
-
-The default is English.
-
-`MODE_TEST` is answered with `0` or `1`. The shipped default is `1`.
-
+`sudo ./liltress configure` asks the questions below, writes `global.conf` mode `644` and `secrets.conf` mode `600` as root, then starts `script/run.sh`.<br/>
+The first question chooses the language.<br/>
+The value is `LANGUAGE`.<br/>
+The default is English.<br/>
+`MODE_TEST` is answered with `0` or `1`. The shipped default is `1`.<br/>
 An unknown option is refused.
 
 | Question | Expected answer |
@@ -35,24 +36,18 @@ An unknown option is refused.
 | Password | The provider application password, 8 to 128 characters. Spaces are removed. Quotes, `$`, `\` and backticks are refused. Never the account password. |
 | From | An e-mail address. `WATCHDOG_MAIL` receives the same address. |
 
-When alerts are enabled, `swaks` must receive a `250`.
-
-The success line of that test is `Essai d'envoi accepté.`
-
+When alerts are enabled, `swaks` must receive a `250`.<br/>
+The success line of that test is `Essai d'envoi accepté.`<br/>
 When alerts stay off, the line is `Alertes e-mail coupées. Les contrôles partiront sans envoi.`
 
-## Check without rewriting
+## 📋 Check without rewriting
 
 ```bash
 sudo ./liltress check
 ```
 
-The command checks `global.conf` and `secrets.conf` and does not rewrite them.
-
-`secrets.conf` is mode `600`, so `sudo` is required to read it.
-
-Exit code `0` means both files conform.
-
-The success line is `Configuration conforme`.
-
+The command checks `global.conf` and `secrets.conf` and does not rewrite them.<br/>
+`secrets.conf` is mode `600`, so `sudo` is required to read it.<br/>
+Exit code `0` means both files conform.<br/>
+The success line is `Configuration conforme`.<br/>
 This is the same check as `script/configure.sh --check`.

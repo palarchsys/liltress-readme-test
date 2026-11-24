@@ -1,4 +1,8 @@
-# Verfügbare Funktionen
+<div align="center">
+
+# 🛡️ Verfügbare Funktionen 🛡️
+
+</div>
 
 [English](../en/functions.md) · [Français](../fr/functions.md) · **Deutsch** · [Español](../es/functions.md)
 
@@ -14,11 +18,12 @@
 - [Überwachte Bereiche](zones.md)
 - [VPN](vpn.md)
 
-Jeder Befehl unten ist ein echter `./liltress`-Eintrag. Starten Sie ihn aus `/opt/liltress-workstation`, sofern die Zeile nichts anderes sagt.
+---
 
+Jeder Befehl unten ist ein echter `./liltress`-Eintrag. Starten Sie ihn aus `/opt/liltress-workstation`, sofern die Zeile nichts anderes sagt.<br/>
 Der Erfolgtext ist die Zeile, die das Skript druckt. Er wird nicht übersetzt.
 
-## liltress
+## 📋 liltress
 
 | Befehl | Wirkung | Erfolg oder Exit |
 | --- | --- | --- |
@@ -29,7 +34,7 @@ Der Erfolgtext ist die Zeile, die das Skript druckt. Er wird nicht übersetzt.
 | `sudo ./liltress lynis` | Führt `lynis audit system --quick --no-colors` aus. Schreibt den Bericht unter `<source>/log/lynis-<date>/`. | Die letzte Zeile beginnt mit `Rapport :` |
 | `sudo ./liltress logs` | Kopiert einen Schnappschuss nach `<source>/log/snapshot-<date>-<host>`. Private Dateien (`secrets.conf`, Schlüssel, Passwörter) werden nicht kopiert. Eine Datei über 8 MiB wird gekürzt, der Schnitt steht in `snapshot/truncated.txt`. | Das Schnappschussverzeichnis ist das Ergebnis. |
 
-## vpn
+## 📋 vpn
 
 | Befehl | Wirkung |
 | --- | --- |
@@ -51,7 +56,7 @@ Der Erfolgtext ist die Zeile, die das Skript druckt. Er wird nicht übersetzt.
 
 Importregeln, Marken und Killswitch stehen in [vpn.md](vpn.md).
 
-## verify
+## 📋 verify
 
 | Befehl | Wirkung | Erfolg oder Exit |
 | --- | --- | --- |
@@ -62,7 +67,7 @@ Importregeln, Marken und Killswitch stehen in [vpn.md](vpn.md).
 | `sudo ./liltress verify boot-check` | Dieselbe Startprüfung aus jedem Verzeichnis der Zielmaschine. | Noch laufend: `Contrôle de démarrage : en cours`, Exit `1`. Abweichung: `Contrôle de démarrage : écarts`, Exit `1`. |
 | `sudo ./liltress verify chkrootkit` | Liest einen chkrootkit-Lauf für einen Menschen. Journal: `/var/log/liltress-workstation/chkrootkit-fp-<date>.log`. | Schreibt die Ignorierliste nicht. |
 
-## maintain
+## 📋 maintain
 
 | Befehl | Wirkung | Erfolgszeile |
 | --- | --- | --- |
@@ -78,14 +83,10 @@ Importregeln, Marken und Killswitch stehen in [vpn.md](vpn.md).
 | `sudo ./liltress maintain restore <id>` | Legt eine Quarantänedatei zurück. Die Kennung ist eine Zeile von `cron/quarantine.registry`. Skript: `core/quarantine/restore.sh`. | `fichier remis en place` |
 | `sudo ./liltress maintain mail` | Sendet einen Layout-Test an den konfigurierten Empfänger. Skript: `core/mail/mail-test.sh`. | Die Testnachricht ist das Ergebnis. |
 
-### Grenzen von scan-skip
+## ▪️ Grenzen von scan-skip
 
-Ein Pfad wird unter dem Home des Arbeitsplatzkontos akzeptiert, und unterhalb dieses Homes.
-
-`/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, das ganze Home, Downloads, Desktop und ihr Elternordner werden abgelehnt.
-
-Schon vorhanden: `Ce chemin est déjà exclu : <path>`.
-
-Beim Entfernen fehlend: `Ce chemin n'est pas dans la liste : <path>`, Exit `1`.
-
+Ein Pfad wird unter dem Home des Arbeitsplatzkontos akzeptiert, und unterhalb dieses Homes.<br/>
+`/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, das ganze Home, Downloads, Desktop und ihr Elternordner werden abgelehnt.<br/>
+Schon vorhanden: `Ce chemin est déjà exclu : <path>`.<br/>
+Beim Entfernen fehlend: `Ce chemin n'est pas dans la liste : <path>`, Exit `1`.<br/>
 Ein abgelehnter Pfad lässt die Datei unverändert.

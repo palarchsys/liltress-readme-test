@@ -1,4 +1,8 @@
-# Fonctions disponibles
+<div align="center">
+
+# 🛡️ Fonctions disponibles 🛡️
+
+</div>
 
 [English](../en/functions.md) · **Français** · [Deutsch](../de/functions.md) · [Español](../es/functions.md)
 
@@ -14,11 +18,12 @@
 - [Carte des zones surveillées](zones.md)
 - [VPN](vpn.md)
 
-Chaque commande ci-dessous est une entrée réelle de `./liltress`. Lancez-les depuis `/opt/liltress-workstation`, sauf mention contraire.
+---
 
+Chaque commande ci-dessous est une entrée réelle de `./liltress`. Lancez-les depuis `/opt/liltress-workstation`, sauf mention contraire.<br/>
 Le texte de succès est la ligne imprimée par le script. Il n'est pas traduit.
 
-## liltress
+## 📋 liltress
 
 | Commande | Effet | Succès ou sortie |
 | --- | --- | --- |
@@ -29,7 +34,7 @@ Le texte de succès est la ligne imprimée par le script. Il n'est pas traduit.
 | `sudo ./liltress lynis` | Lance `lynis audit system --quick --no-colors`. Écrit le rapport sous `<source>/log/lynis-<date>/`. | La dernière ligne commence par `Rapport :` |
 | `sudo ./liltress logs` | Copie un instantané dans `<source>/log/snapshot-<date>-<hôte>`. Les fichiers privés (`secrets.conf`, clés, mots de passe) ne sont pas copiés. Un fichier de plus de 8 Mio est tronqué, et la coupe est notée dans `snapshot/truncated.txt`. | Le dossier d'instantané est le résultat. |
 
-## vpn
+## 📋 vpn
 
 | Commande | Effet |
 | --- | --- |
@@ -51,7 +56,7 @@ Le texte de succès est la ligne imprimée par le script. Il n'est pas traduit.
 
 Le détail des imports, des marques et du killswitch est dans [vpn.md](vpn.md).
 
-## verify
+## 📋 verify
 
 | Commande | Effet | Succès ou sortie |
 | --- | --- | --- |
@@ -62,7 +67,7 @@ Le détail des imports, des marques et du killswitch est dans [vpn.md](vpn.md).
 | `sudo ./liltress verify boot-check` | Même contrôle depuis n'importe quel répertoire de la machine. | En cours : `Contrôle de démarrage : en cours`, sortie `1`. Écart : `Contrôle de démarrage : écarts`, sortie `1`. |
 | `sudo ./liltress verify chkrootkit` | Relève une passe chkrootkit pour lecture humaine. Journal : `/var/log/liltress-workstation/chkrootkit-fp-<date>.log`. | N'écrit pas la liste d'ignorés. |
 
-## maintain
+## 📋 maintain
 
 | Commande | Effet | Ligne de succès |
 | --- | --- | --- |
@@ -78,14 +83,10 @@ Le détail des imports, des marques et du killswitch est dans [vpn.md](vpn.md).
 | `sudo ./liltress maintain restore <id>` | Remet un fichier de quarantaine. L'identifiant est une ligne de `cron/quarantine.registry`. Script : `core/quarantine/restore.sh`. | `fichier remis en place` |
 | `sudo ./liltress maintain mail` | Envoie un essai de mise en page au destinataire configuré. Script : `core/mail/mail-test.sh`. | Le message d'essai est le résultat. |
 
-### Limites de scan-skip
+## ▪️ Limites de scan-skip
 
-Un chemin est accepté sous le home du compte du poste, et plus bas que ce home.
-
-`/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, le home entier, Téléchargements, Bureau et leur parent sont refusés.
-
-Déjà présent : `Ce chemin est déjà exclu : <path>`.
-
-Absent au retrait : `Ce chemin n'est pas dans la liste : <path>`, sortie `1`.
-
+Un chemin est accepté sous le home du compte du poste, et plus bas que ce home.<br/>
+`/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, le home entier, Téléchargements, Bureau et leur parent sont refusés.<br/>
+Déjà présent : `Ce chemin est déjà exclu : <path>`.<br/>
+Absent au retrait : `Ce chemin n'est pas dans la liste : <path>`, sortie `1`.<br/>
 Un chemin refusé laisse le fichier inchangé.

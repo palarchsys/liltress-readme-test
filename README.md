@@ -18,11 +18,19 @@ sudo apt-get install -y ca-certificates curl git swaks >/dev/null 2>&1
 curl -fsSL https://raw.githubusercontent.com/palarchsys/liltress-workstation/main/script/install.sh | sudo bash
 ```
 
-## Documentation
+`install.sh` asks `[O/N]` on the terminal.<br/>
+`O` replaces the installed tree with the fetched branch.<br/>
+`O` runs `script/run.sh` when `script/configure.sh --check` succeeds.<br/>
+Any other answer stops.<br/>
+A failed check runs `script/configure.sh`.
+
+## 📋 Documentation
 
 <div align="center">
 
-<table>
+Click a flag to open all the information.
+
+<table align="center">
   <tr>
     <td align="center"><a href="doc/en/README.md"><img src="doc/flags/en.svg" alt="English" width="90"></a><br/>English</td>
     <td align="center"><a href="doc/fr/README.md"><img src="doc/flags/fr.svg" alt="Français" width="90"></a><br/>Français</td>
@@ -30,7 +38,5 @@ curl -fsSL https://raw.githubusercontent.com/palarchsys/liltress-workstation/mai
     <td align="center"><a href="doc/es/README.md"><img src="doc/flags/es.svg" alt="Español" width="90"></a><br/>Español</td>
   </tr>
 </table>
-
-Click a flag to open all the information.
 
 </div>

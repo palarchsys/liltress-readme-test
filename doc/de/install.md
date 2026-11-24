@@ -1,4 +1,8 @@
-# Installation
+<div align="center">
+
+# 🛡️ Installation 🛡️
+
+</div>
 
 [English](../en/install.md) · [Français](../fr/install.md) · **Deutsch** · [Español](../es/install.md)
 
@@ -14,25 +18,24 @@
 - [Überwachte Bereiche](zones.md)
 - [VPN](vpn.md)
 
-## Vor dem Start
+---
+
+## 📋 Vor dem Start
 
 Drei Punkte stehen vor der Installation: das System, der Zugriff und die externen Angaben.
 
-### System
+## ▪️ System
 
-Ubuntu 26.04 oder neuer, einschließlich einer Zwischenversion.
-
-Eine frische Installation ist vorzuziehen.
-
-Nutzen Sie eine lokale Konsole oder die vorhandene grafische Sitzung.
-
+Ubuntu 26.04 oder neuer, einschließlich einer Zwischenversion.<br/>
+Eine frische Installation ist vorzuziehen.<br/>
+Nutzen Sie eine lokale Konsole oder die vorhandene grafische Sitzung.<br/>
 Die Maschine braucht Internetzugang.
 
-### Zugriff
+## ▪️ Zugriff
 
 Sie brauchen `sudo` für `./liltress configure`, `./liltress run` und die Prüfungen.
 
-### Externe Angaben
+## ▪️ Externe Angaben
 
 | Bedarf | Vorgehen |
 | --- | --- |
@@ -40,24 +43,20 @@ Sie brauchen `sudo` für `./liltress configure`, `./liltress run` und die Prüfu
 | Anwendungspasswort | Nur wenn Mail-Alarme aktiv sind. Nutzen Sie das Anwendungspasswort des Anbieters. Niemals das Kontopasswort. Länge 8 bis 128. Leerzeichen werden entfernt. |
 | SMTP-Server | Nur wenn Alarme aktiv sind. Form `host:port`. Beispiel: `smtp-mail.outlook.com:587`. Klammern werden abgelehnt. `swaks` sendet eine Testnachricht. |
 
-## Curl
+## 📋 Curl
 
 ```bash
 sudo apt-get install -y ca-certificates curl git swaks >/dev/null 2>&1
 curl -fsSL https://raw.githubusercontent.com/palarchsys/liltress-workstation/main/script/install.sh | sudo bash
 ```
 
-`install.sh` fragt `[O/N]` im Terminal.
-
-`O` ersetzt den installierten Baum durch den geholten Zweig.
-
-`O` startet `script/run.sh`, wenn `script/configure.sh --check` gelingt.
-
-Jede andere Antwort stoppt.
-
+`install.sh` fragt `[O/N]` im Terminal.<br/>
+`O` ersetzt den installierten Baum durch den geholten Zweig.<br/>
+`O` startet `script/run.sh`, wenn `script/configure.sh --check` gelingt.<br/>
+Jede andere Antwort stoppt.<br/>
 Eine fehlgeschlagene Prüfung startet `script/configure.sh`.
 
-## Clone
+## 📋 Clone
 
 ```bash
 sudo git clone https://github.com/palarchsys/liltress-workstation /opt/liltress-workstation

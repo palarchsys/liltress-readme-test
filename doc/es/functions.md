@@ -1,4 +1,8 @@
-# Funciones disponibles
+<div align="center">
+
+# 🛡️ Funciones disponibles 🛡️
+
+</div>
 
 [English](../en/functions.md) · [Français](../fr/functions.md) · [Deutsch](../de/functions.md) · **Español**
 
@@ -14,11 +18,12 @@
 - [Mapa de zonas vigiladas](zones.md)
 - [VPN](vpn.md)
 
-Cada comando de abajo es una entrada real de `./liltress`. Ejecútelo desde `/opt/liltress-workstation` salvo que la fila diga otra cosa.
+---
 
+Cada comando de abajo es una entrada real de `./liltress`. Ejecútelo desde `/opt/liltress-workstation` salvo que la fila diga otra cosa.<br/>
 El texto de éxito es la línea que imprime el script. No se traduce.
 
-## liltress
+## 📋 liltress
 
 | Comando | Efecto | Éxito o salida |
 | --- | --- | --- |
@@ -29,7 +34,7 @@ El texto de éxito es la línea que imprime el script. No se traduce.
 | `sudo ./liltress lynis` | Ejecuta `lynis audit system --quick --no-colors`. Escribe el informe bajo `<source>/log/lynis-<date>/`. | La última línea empieza por `Rapport :` |
 | `sudo ./liltress logs` | Copia una instantánea de diarios a `<source>/log/snapshot-<date>-<host>`. Los archivos privados (`secrets.conf`, claves, contraseñas) no se copian. Un archivo de más de 8 MiB se trunca y el corte se anota en `snapshot/truncated.txt`. | El directorio de la instantánea es el resultado. |
 
-## vpn
+## 📋 vpn
 
 | Comando | Efecto |
 | --- | --- |
@@ -51,7 +56,7 @@ El texto de éxito es la línea que imprime el script. No se traduce.
 
 El detalle de las reglas de importación, las marcas y el killswitch está en [vpn.md](vpn.md).
 
-## verify
+## 📋 verify
 
 | Comando | Efecto | Éxito o salida |
 | --- | --- | --- |
@@ -62,7 +67,7 @@ El detalle de las reglas de importación, las marcas y el killswitch está en [v
 | `sudo ./liltress verify boot-check` | La misma comprobación de arranque desde cualquier directorio de la máquina de destino. | En curso: `Contrôle de démarrage : en cours`, salida `1`. Diferencia: `Contrôle de démarrage : écarts`, salida `1`. |
 | `sudo ./liltress verify chkrootkit` | Lee un paso de chkrootkit para una persona. Diario: `/var/log/liltress-workstation/chkrootkit-fp-<date>.log`. | No escribe la lista de omisión. |
 
-## maintain
+## 📋 maintain
 
 | Comando | Efecto | Línea de éxito |
 | --- | --- | --- |
@@ -78,14 +83,10 @@ El detalle de las reglas de importación, las marcas y el killswitch está en [v
 | `sudo ./liltress maintain restore <id>` | Restaura un archivo de cuarentena. El id es una línea de `cron/quarantine.registry`. Script: `core/quarantine/restore.sh`. | `fichier remis en place` |
 | `sudo ./liltress maintain mail` | Envía una prueba de disposición al destinatario configurado. Script: `core/mail/mail-test.sh`. | El mensaje de prueba es el resultado. |
 
-### Límites de scan-skip
+## ▪️ Límites de scan-skip
 
-Una ruta se acepta bajo el home de la cuenta del puesto, y por debajo de ese home.
-
-Se rechazan `/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, el home entero, Descargas, Escritorio y su padre.
-
-Ya presente: `Ce chemin est déjà exclu : <path>`.
-
-Ausente al borrar: `Ce chemin n'est pas dans la liste : <path>`, salida `1`.
-
+Una ruta se acepta bajo el home de la cuenta del puesto, y por debajo de ese home.<br/>
+Se rechazan `/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, el home entero, Descargas, Escritorio y su padre.<br/>
+Ya presente: `Ce chemin est déjà exclu : <path>`.<br/>
+Ausente al borrar: `Ce chemin n'est pas dans la liste : <path>`, salida `1`.<br/>
 Una ruta rechazada deja el archivo sin cambios.

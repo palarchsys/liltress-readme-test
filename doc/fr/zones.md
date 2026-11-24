@@ -1,4 +1,8 @@
-# Carte des zones surveillées
+<div align="center">
+
+# 🛡️ Carte des zones surveillées 🛡️
+
+</div>
 
 [English](../en/zones.md) · **Français** · [Deutsch](../de/zones.md) · [Español](../es/zones.md)
 
@@ -14,6 +18,8 @@
 - **Carte des zones surveillées**
 - [VPN](vpn.md)
 
+---
+
 Les couleurs aident la lecture. Elles ne sont pas une seconde politique. Les outils de la ligne sont la politique.
 
 | Zone | Niveau | Outils | Notes |
@@ -27,7 +33,7 @@ Les couleurs aident la lecture. Elles ne sont pas une seconde politique. Les out
 | Stockage USB | 🟡 Standard | usbguard | Un stockage nouveau attend une confirmation du bureau. Claviers, souris, hubs et périphériques déjà présents sont autorisés. |
 | Fichiers empaquetés sous `/usr` | 🟢 Léger | debsums, rkhunter | Sommes de contrôle et base de propriétés. Un écart debsums peut réinstaller le paquet. |
 
-## Légende
+## 📋 Légende
 
 - 🔴 Haute : scan à l'accès plus intégrité, ou chemin qui ne peut pas être exclu.
 - 🟠 Moyen : intégrité et arbre du produit.

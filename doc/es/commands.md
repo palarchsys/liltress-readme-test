@@ -1,4 +1,8 @@
-# Comandos después de la instalación
+<div align="center">
+
+# 🛡️ Comandos después de la instalación 🛡️
+
+</div>
 
 [English](../en/commands.md) · [Français](../fr/commands.md) · [Deutsch](../de/commands.md) · **Español**
 
@@ -14,40 +18,37 @@
 - [Mapa de zonas vigiladas](zones.md)
 - [VPN](vpn.md)
 
+---
+
 Ejecute estos comandos desde `/opt/liltress-workstation`.
 
-## Comprobar la configuración
+## 📋 Comprobar la configuración
 
 ```bash
 sudo ./liltress check
 ```
 
-Comprueba `global.conf` y `secrets.conf`.
-
+Comprueba `global.conf` y `secrets.conf`.<br/>
 La línea de éxito es `Configuration conforme`.
 
-## Volver a ejecutar el instalador
+## 📋 Volver a ejecutar el instalador
 
 ```bash
 sudo ./liltress run
 ```
 
-Arranca desde los archivos preparados.
-
+Arranca desde los archivos preparados.<br/>
 El instalador se niega a empezar si la comprobación no pasa.
 
-## Probar el camino de las alertas
+## 📋 Probar el camino de las alertas
 
 ```bash
 sudo ./liltress verify alerts
 ```
 
-Comprueba el temporizador de la cadena de arranque, el temporizador periódico, ClamAV al acceso y el camino del correo.
-
-Sin `--no-send`, se envía una sonda cuando las alertas están activadas.
-
-El asunto termina con `Contrôle`.
-
+Comprueba el temporizador de la cadena de arranque, el temporizador periódico, ClamAV al acceso y el camino del correo.<br/>
+Sin `--no-send`, se envía una sonda cuando las alertas están activadas.<br/>
+El asunto termina con `Contrôle`.<br/>
 La línea de éxito es `Résultat : OK`.
 
 ```bash
@@ -56,63 +57,56 @@ sudo ./liltress verify alerts --no-send
 
 La misma comprobación. Ninguna sonda.
 
-## Comprobar el puesto
+## 📋 Comprobar el puesto
 
 ```bash
 sudo ./liltress verify workstation
 ```
 
-Líneas finales: `Check Success : N`, `Check Warnings : N`, `Check Fails : N`.
-
+Líneas finales: `Check Success : N`, `Check Warnings : N`, `Check Fails : N`.<br/>
 El mismo paso comprueba el reenvío SSH, la regla de cortafuegos SSH, USBGuard, el tiempo de espera de sudo y `w-reboot-notice.timer`.
 
-## Comprobar este arranque
+## 📋 Comprobar este arranque
 
 ```bash
 sudo ./liltress verify boot
 ```
 
-Éxito: `Contrôle de démarrage : OK`.
-
-Aún en curso: `Contrôle de démarrage : en cours`, salida `1`.
-
+Éxito: `Contrôle de démarrage : OK`.<br/>
+Aún en curso: `Contrôle de démarrage : en cours`, salida `1`.<br/>
 Una diferencia: `Contrôle de démarrage : écarts`, salida `1`.
 
-## Lynis
+## 📋 Lynis
 
 ```bash
 sudo ./liltress lynis
 ```
 
-Ejecuta `lynis audit system --quick --no-colors`.
-
-El informe está bajo `<source>/log/lynis-<stamp>/`.
-
+Ejecuta `lynis audit system --quick --no-colors`.<br/>
+El informe está bajo `<source>/log/lynis-<stamp>/`.<br/>
 `LYNIS_MIN_SCORE` es 80.
 
-## Reconstruir las bases
+## 📋 Reconstruir las bases
 
 ```bash
 sudo ./liltress maintain aide
 sudo ./liltress maintain rkhunter
 ```
 
-Éxito de AIDE: `Base de référence AIDE enregistrée.`
-
+Éxito de AIDE: `Base de référence AIDE enregistrée.`<br/>
 Éxito de rkhunter: `Base de propriétés rkhunter enregistrée.`
 
-## Sello de espejos de rkhunter
+## 📋 Sello de espejos de rkhunter
 
 ```bash
 sudo ./liltress maintain mirrors save
 sudo ./liltress maintain mirrors check
 ```
 
-`mirrors save` escribe el SHA-256 en `/opt/liltress-workstation/cron/rkhunter-mirrors.sha256`, modo `600`.
-
+`mirrors save` escribe el SHA-256 en `/opt/liltress-workstation/cron/rkhunter-mirrors.sha256`, modo `600`.<br/>
 `mirrors check` no imprime nada. La salida `0` significa que las huellas coinciden, o que todavía no hay ninguna guardada.
 
-## Rutas excluidas del acceso
+## 📋 Rutas excluidas del acceso
 
 ```bash
 sudo ./liltress maintain scan-skip list

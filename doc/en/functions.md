@@ -1,4 +1,8 @@
-# Available functions
+<div align="center">
+
+# 🛡️ Available functions 🛡️
+
+</div>
 
 **English** · [Français](../fr/functions.md) · [Deutsch](../de/functions.md) · [Español](../es/functions.md)
 
@@ -14,11 +18,12 @@
 - [Monitored zones](zones.md)
 - [VPN](vpn.md)
 
-Each command below is a real `./liltress` entry. Run them from `/opt/liltress-workstation` unless the row says otherwise.
+---
 
+Each command below is a real `./liltress` entry. Run them from `/opt/liltress-workstation` unless the row says otherwise.<br/>
 Success text is the line the script prints. It is not translated.
 
-## liltress
+## 📋 liltress
 
 | Command | Effect | Success or exit |
 | --- | --- | --- |
@@ -29,7 +34,7 @@ Success text is the line the script prints. It is not translated.
 | `sudo ./liltress lynis` | Runs `lynis audit system --quick --no-colors`. Writes the report under `<source>/log/lynis-<date>/`. | Last line starts with `Rapport :` |
 | `sudo ./liltress logs` | Copies a log snapshot to `<source>/log/snapshot-<date>-<host>`. Private files (`secrets.conf`, keys, passwords) are not copied. A file over 8 MiB is truncated and the cut is noted in `snapshot/truncated.txt`. | The snapshot directory is the result. |
 
-## vpn
+## 📋 vpn
 
 | Command | Effect |
 | --- | --- |
@@ -51,7 +56,7 @@ Success text is the line the script prints. It is not translated.
 
 Detail of import rules, brands, and killswitch behaviour is in [vpn.md](vpn.md).
 
-## verify
+## 📋 verify
 
 | Command | Effect | Success or exit |
 | --- | --- | --- |
@@ -62,7 +67,7 @@ Detail of import rules, brands, and killswitch behaviour is in [vpn.md](vpn.md).
 | `sudo ./liltress verify boot-check` | Same boot check from any directory on the target machine. | Still running: `Contrôle de démarrage : en cours`, exit `1`. Gap: `Contrôle de démarrage : écarts`, exit `1`. |
 | `sudo ./liltress verify chkrootkit` | Reads a chkrootkit pass for a human. Journal: `/var/log/liltress-workstation/chkrootkit-fp-<date>.log`. | Does not write the ignore list. |
 
-## maintain
+## 📋 maintain
 
 | Command | Effect | Success line |
 | --- | --- | --- |
@@ -78,14 +83,10 @@ Detail of import rules, brands, and killswitch behaviour is in [vpn.md](vpn.md).
 | `sudo ./liltress maintain restore <id>` | Restores one quarantine file. The id is a line of `cron/quarantine.registry`. Script: `core/quarantine/restore.sh`. | `fichier remis en place` |
 | `sudo ./liltress maintain mail` | Sends a layout test to the configured recipient. Script: `core/mail/mail-test.sh`. | The test message is the result. |
 
-### scan-skip limits
+## ▪️ scan-skip limits
 
-A path is accepted under the workstation account home, and below that home.
-
-`/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, the whole home, Downloads, Desktop, and their parent are refused.
-
-Already present: `Ce chemin est déjà exclu : <path>`.
-
-Absent on delete: `Ce chemin n'est pas dans la liste : <path>`, exit `1`.
-
+A path is accepted under the workstation account home, and below that home.<br/>
+`/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, the whole home, Downloads, Desktop, and their parent are refused.<br/>
+Already present: `Ce chemin est déjà exclu : <path>`.<br/>
+Absent on delete: `Ce chemin n'est pas dans la liste : <path>`, exit `1`.<br/>
 A refused path leaves the file unchanged.

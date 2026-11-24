@@ -1,4 +1,8 @@
-# Mapa de zonas vigiladas
+<div align="center">
+
+# 🛡️ Mapa de zonas vigiladas 🛡️
+
+</div>
 
 [English](../en/zones.md) · [Français](../fr/zones.md) · [Deutsch](../de/zones.md) · **Español**
 
@@ -14,6 +18,8 @@
 - **Mapa de zonas vigiladas**
 - [VPN](vpn.md)
 
+---
+
 Los colores ayudan a la lectura. No son una segunda política. Las herramientas de la fila son la política.
 
 | Zona | Nivel | Herramientas | Notas |
@@ -27,7 +33,7 @@ Los colores ayudan a la lectura. No son una segunda política. Las herramientas 
 | Almacenamiento USB | 🟡 Estándar | usbguard | Un almacenamiento nuevo espera una confirmación del escritorio. Teclados, ratones, concentradores y dispositivos ya presentes están permitidos. |
 | Archivos empaquetados bajo `/usr` | 🟢 Ligera | debsums, rkhunter | Sumas de control y base de propiedades. Una diferencia de debsums puede reinstalar el paquete. |
 
-## Leyenda
+## 📋 Leyenda
 
 - 🔴 Alta: análisis al acceso más integridad, o una ruta que no se puede excluir.
 - 🟠 Media: integridad y el árbol del producto.

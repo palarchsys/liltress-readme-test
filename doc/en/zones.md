@@ -1,4 +1,8 @@
-# Monitored zones
+<div align="center">
+
+# 🛡️ Monitored zones 🛡️
+
+</div>
 
 **English** · [Français](../fr/zones.md) · [Deutsch](../de/zones.md) · [Español](../es/zones.md)
 
@@ -14,6 +18,8 @@
 - **Monitored zones**
 - [VPN](vpn.md)
 
+---
+
 The colours are a reading aid. They are not a second policy. The tools in the row are the policy.
 
 | Zone | Level | Tools | Notes |
@@ -27,7 +33,7 @@ The colours are a reading aid. They are not a second policy. The tools in the ro
 | USB storage | 🟡 Standard | usbguard | A new storage device waits for a desktop confirmation. Keyboards, mice, hubs, and devices already present are allowed. |
 | Packaged files under `/usr` | 🟢 Light | debsums, rkhunter | Checksums and the property database. A debsums mismatch can reinstall the package. |
 
-## Legend
+## 📋 Legend
 
 - 🔴 High: on-access scanning plus integrity or a path that cannot be excluded.
 - 🟠 Medium: integrity and the product tree.

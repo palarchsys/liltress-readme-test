@@ -1,4 +1,8 @@
-# Instalación
+<div align="center">
+
+# 🛡️ Instalación 🛡️
+
+</div>
 
 [English](../en/install.md) · [Français](../fr/install.md) · [Deutsch](../de/install.md) · **Español**
 
@@ -14,25 +18,24 @@
 - [Mapa de zonas vigiladas](zones.md)
 - [VPN](vpn.md)
 
-## Antes de empezar
+---
+
+## 📋 Antes de empezar
 
 Tres puntos preceden a la instalación: el sistema, el acceso y las necesidades externas.
 
-### Sistema
+## ▪️ Sistema
 
-Ubuntu 26.04 o más reciente, incluida una versión intermedia.
-
-Se prefiere una instalación limpia.
-
-Use una consola local o la sesión gráfica ya abierta.
-
+Ubuntu 26.04 o más reciente, incluida una versión intermedia.<br/>
+Se prefiere una instalación limpia.<br/>
+Use una consola local o la sesión gráfica ya abierta.<br/>
 La máquina necesita acceso a Internet.
 
-### Acceso
+## ▪️ Acceso
 
 Necesita `sudo` para `./liltress configure`, `./liltress run` y las comprobaciones.
 
-### Necesidades externas
+## ▪️ Necesidades externas
 
 | Necesidad | Procedimiento |
 | --- | --- |
@@ -40,24 +43,20 @@ Necesita `sudo` para `./liltress configure`, `./liltress run` y las comprobacion
 | Contraseña de aplicación | Solo si las alertas por correo están activadas. Use la contraseña de aplicación del proveedor. Nunca la contraseña de la cuenta. Longitud de 8 a 128. Los espacios escritos en la pregunta se retiran. |
 | Servidor SMTP | Solo si las alertas están activadas. Forma `host:port`. Ejemplo: `smtp-mail.outlook.com:587`. Los corchetes se rechazan. `swaks` envía un mensaje de prueba. |
 
-## Curl
+## 📋 Curl
 
 ```bash
 sudo apt-get install -y ca-certificates curl git swaks >/dev/null 2>&1
 curl -fsSL https://raw.githubusercontent.com/palarchsys/liltress-workstation/main/script/install.sh | sudo bash
 ```
 
-`install.sh` pregunta `[O/N]` en el terminal.
-
-`O` sustituye el árbol instalado por la rama obtenida.
-
-`O` ejecuta `script/run.sh` cuando `script/configure.sh --check` tiene éxito.
-
-Cualquier otra respuesta se detiene.
-
+`install.sh` pregunta `[O/N]` en el terminal.<br/>
+`O` sustituye el árbol instalado por la rama obtenida.<br/>
+`O` ejecuta `script/run.sh` cuando `script/configure.sh --check` tiene éxito.<br/>
+Cualquier otra respuesta se detiene.<br/>
 Una comprobación fallida ejecuta `script/configure.sh`.
 
-## Clone
+## 📋 Clone
 
 ```bash
 sudo git clone https://github.com/palarchsys/liltress-workstation /opt/liltress-workstation

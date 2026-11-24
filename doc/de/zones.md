@@ -1,4 +1,8 @@
-# Überwachte Bereiche
+<div align="center">
+
+# 🛡️ Überwachte Bereiche 🛡️
+
+</div>
 
 [English](../en/zones.md) · [Français](../fr/zones.md) · **Deutsch** · [Español](../es/zones.md)
 
@@ -14,6 +18,8 @@
 - **Überwachte Bereiche**
 - [VPN](vpn.md)
 
+---
+
 Die Farben helfen beim Lesen. Sie sind keine zweite Richtlinie. Die Werkzeuge in der Zeile sind die Richtlinie.
 
 | Bereich | Stufe | Werkzeuge | Hinweise |
@@ -27,7 +33,7 @@ Die Farben helfen beim Lesen. Sie sind keine zweite Richtlinie. Die Werkzeuge in
 | USB-Speicher | 🟡 Standard | usbguard | Ein neuer Speicher wartet auf eine Desktop-Bestätigung. Tastaturen, Mäuse, Hubs und bereits vorhandene Geräte sind erlaubt. |
 | Gepackte Dateien unter `/usr` | 🟢 Leicht | debsums, rkhunter | Prüfsummen und Eigenschaftsdatenbank. Eine debsums-Abweichung kann das Paket neu installieren. |
 
-## Legende
+## 📋 Legende
 
 - 🔴 Hoch: Zugriffsscan plus Integrität, oder ein Pfad, der nicht ausgenommen werden kann.
 - 🟠 Mittel: Integrität und der Produktbaum.

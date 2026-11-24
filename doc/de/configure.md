@@ -1,4 +1,8 @@
-# Konfiguration
+<div align="center">
+
+# 🛡️ Konfiguration 🛡️
+
+</div>
 
 [English](../en/configure.md) · [Français](../fr/configure.md) · **Deutsch** · [Español](../es/configure.md)
 
@@ -14,16 +18,13 @@
 - [Überwachte Bereiche](zones.md)
 - [VPN](vpn.md)
 
-`sudo ./liltress configure` stellt die Fragen unten, schreibt `global.conf` mit Modus `644` und `secrets.conf` mit Modus `600` als root und startet dann `script/run.sh`.
+---
 
-Die erste Frage wählt die Sprache.
-
-Der Wert ist `LANGUAGE`.
-
-Die Vorgabe ist Englisch.
-
-`MODE_TEST` wird mit `0` oder `1` beantwortet. Der gelieferte Vorgabewert ist `1`.
-
+`sudo ./liltress configure` stellt die Fragen unten, schreibt `global.conf` mit Modus `644` und `secrets.conf` mit Modus `600` als root und startet dann `script/run.sh`.<br/>
+Die erste Frage wählt die Sprache.<br/>
+Der Wert ist `LANGUAGE`.<br/>
+Die Vorgabe ist Englisch.<br/>
+`MODE_TEST` wird mit `0` oder `1` beantwortet. Der gelieferte Vorgabewert ist `1`.<br/>
 Eine unbekannte Option wird abgelehnt.
 
 | Frage | Erwartete Antwort |
@@ -35,24 +36,18 @@ Eine unbekannte Option wird abgelehnt.
 | Password | Das Anwendungspasswort, 8 bis 128 Zeichen. Leerzeichen werden entfernt. Anführungszeichen, `$`, `\` und Backticks werden abgelehnt. Niemals das Kontopasswort. |
 | From | Eine E-Mail-Adresse. `WATCHDOG_MAIL` erhält dieselbe Adresse. |
 
-Wenn Alarme aktiv sind, muss `swaks` ein `250` erhalten.
-
-Die Erfolgszeile dieses Tests ist `Essai d'envoi accepté.`
-
+Wenn Alarme aktiv sind, muss `swaks` ein `250` erhalten.<br/>
+Die Erfolgszeile dieses Tests ist `Essai d'envoi accepté.`<br/>
 Wenn Alarme aus bleiben, lautet die Zeile `Alertes e-mail coupées. Les contrôles partiront sans envoi.`
 
-## Prüfung ohne Neuschreiben
+## 📋 Prüfung ohne Neuschreiben
 
 ```bash
 sudo ./liltress check
 ```
 
-Der Befehl prüft `global.conf` und `secrets.conf` und schreibt sie nicht neu.
-
-`secrets.conf` hat Modus `600`, deshalb ist `sudo` zum Lesen nötig.
-
-Code `0` bedeutet, dass beide Dateien stimmen.
-
-Die Erfolgszeile ist `Configuration conforme`.
-
+Der Befehl prüft `global.conf` und `secrets.conf` und schreibt sie nicht neu.<br/>
+`secrets.conf` hat Modus `600`, deshalb ist `sudo` zum Lesen nötig.<br/>
+Code `0` bedeutet, dass beide Dateien stimmen.<br/>
+Die Erfolgszeile ist `Configuration conforme`.<br/>
 Das ist dieselbe Prüfung wie `script/configure.sh --check`.

@@ -1,4 +1,8 @@
-# Software y servicios
+<div align="center">
+
+# 🛡️ Software y servicios 🛡️
+
+</div>
 
 [English](../en/software.md) · [Français](../fr/software.md) · [Deutsch](../de/software.md) · **Español**
 
@@ -13,6 +17,10 @@
 - [Comandos después de la instalación](commands.md)
 - [Mapa de zonas vigiladas](zones.md)
 - [VPN](vpn.md)
+
+---
+
+## 📋 Esta guía
 
 La instalación coloca los paquetes y servicios de abajo. Cada uno se configura desde `config/service/<name>/` y el script correspondiente bajo `service/`.
 
