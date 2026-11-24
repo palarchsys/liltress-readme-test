@@ -22,15 +22,15 @@ curl -fsSL https://raw.githubusercontent.com/palarchsys/liltress-workstation/mai
 
 <div align="center">
 
-Click a flag to open all the information.
-
-<table align="center">
+<table>
   <tr>
-    <td align="center"><a href="doc/en/README.md"><img src="doc/flags/en.svg" alt="English"></a><br/>English</td>
-    <td align="center"><a href="doc/fr/README.md"><img src="doc/flags/fr.svg" alt="Français"></a><br/>Français</td>
-    <td align="center"><a href="doc/de/README.md"><img src="doc/flags/de.svg" alt="Deutsch"></a><br/>Deutsch</td>
-    <td align="center"><a href="doc/es/README.md"><img src="doc/flags/es.svg" alt="Español"></a><br/>Español</td>
+    <td align="center"><a href="doc/en/README.md"><img src="doc/flags/en.svg" alt="English" width="90"></a><br/>English</td>
+    <td align="center"><a href="doc/fr/README.md"><img src="doc/flags/fr.svg" alt="Français" width="90"></a><br/>Français</td>
+    <td align="center"><a href="doc/de/README.md"><img src="doc/flags/de.svg" alt="Deutsch" width="90"></a><br/>Deutsch</td>
+    <td align="center"><a href="doc/es/README.md"><img src="doc/flags/es.svg" alt="Español" width="90"></a><br/>Español</td>
   </tr>
 </table>
+
+Click a flag to open all the information.
 
 </div>
