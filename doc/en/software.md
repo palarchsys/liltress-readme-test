@@ -20,8 +20,6 @@
 
 ---
 
-## 📋 This guide
-
 The installation places the packages and services below. Each one is configured from `config/service/<name>/` and the matching script under `service/`.
 
 | Name | Role | What the workstation setup changes |
@@ -49,3 +47,12 @@ The installation places the packages and services below. Each one is configured 
 | apt-listchanges, needrestart, apt-show-versions | Package notices | Change notices and restart checks. The reboot notice mail does not reboot the machine. |
 
 A service file is not a second copy of a contract variable. Values live in `global.conf`, `user.conf`, or `secrets.conf`.
+
+## ▪️ What stays as it is
+
+Global IPv6 is not turned off.<br/>
+`/tmp` is not mounted `noexec`.<br/>
+SSH stays on a password. It is not key-only.
+
+Swap is not recreated.<br/>
+Those four points are server settings. They are not applied on this workstation.

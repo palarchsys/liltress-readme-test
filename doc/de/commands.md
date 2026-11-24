@@ -48,7 +48,8 @@ sudo ./liltress verify alerts
 
 Prüft den Start-Timer, den periodischen Timer, ClamAV beim Zugriff und den Mailweg.<br/>
 Ohne `--no-send` geht eine Sonde ab, wenn Alarme aktiv sind.<br/>
-Der Betreff endet mit `Contrôle`.<br/>
+Der Betreff endet mit `Contrôle`.
+
 Die Erfolgszeile ist `Résultat : OK`.
 
 ```bash

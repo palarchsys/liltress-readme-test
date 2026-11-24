@@ -22,7 +22,7 @@
 
 La instalación del puesto empieza sin VPN. La red permanece directa.
 
-## 📋 Comandos
+## ▪️ Importación
 
 ```bash
 sudo ./liltress vpn import openvpn <brand> <name> <directory or file>
@@ -31,9 +31,12 @@ sudo ./liltress vpn import wireguard <brand> <name> <directory or file>
 
 La marca es obligatoria. Un archivo sin marca se rechaza.<br/>
 El primer perfil válido se convierte en el VPN de arranque y arma el killswitch.<br/>
-Un lote inválido no se añade. Si es el primero, el killswitch permanece apagado.<br/>
+Un lote inválido no se añade. Si es el primero, el killswitch permanece apagado.
+
 Una importación posterior, con el modo apagado, no sustituye el VPN de arranque y no vuelve a armar el killswitch.<br/>
 Al arrancar, un VPN de arranque válido arma el killswitch y después abre ese perfil.
+
+## ▪️ Perfil de arranque
 
 ```bash
 sudo ./liltress vpn default
@@ -45,6 +48,8 @@ sudo ./liltress vpn default off
 `vpn default <name>` lo selecciona si es válido. La sesión en curso permanece.<br/>
 `vpn default off` borra esa elección. Un túnel abierto permanece arriba.
 
+## ▪️ Modo
+
 ```bash
 sudo ./liltress vpn mode on
 sudo ./liltress vpn mode off
@@ -54,14 +59,19 @@ sudo ./liltress vpn mode off
 `vpn mode off` desarma el killswitch y vuelve a la red directa. El VPN de arranque permanece para el siguiente arranque. Los directorios de perfil permanecen.<br/>
 El perfil aparece en Configuración, Red. El interruptor es el modo. La importación no es el botón `+`.
 
+## ▪️ Cambio
+
 ```bash
 sudo ./liltress vpn switch <name>
 ```
 
 Pasa a otro perfil válido. El killswitch permanece armado durante el cambio. El VPN de arranque no cambia.<br/>
 Un cambio fallido no restaura Internet directo y no retira un perfil.<br/>
-Un perfil que ya ha respondido y después falla tres intentos de diez segundos se retira.<br/>
+Un perfil que ya ha respondido y después falla tres intentos de diez segundos se retira.
+
 Cuando esa retirada se lleva el último perfil, la red pasa a ser directa y el killswitch se desarma. El correo de alerta se envía antes de ese desarme.
+
+## ▪️ Retirada y prueba
 
 ```bash
 sudo ./liltress vpn rm <name>
@@ -72,14 +82,19 @@ sudo ./liltress vpn status
 
 `vpn rm` retira un perfil. Retirar el VPN de arranque prueba el siguiente perfil de la lista, después de una comprobación. Retirar el último borra el VPN de arranque y desarma el killswitch.<br/>
 Un perfil activo que no es el VPN de arranque permanece mientras exista otro perfil.<br/>
-Un `vpn test` fallido deja el directorio.<br/>
+Un `vpn test` fallido deja el directorio.
+
 Cada perfil WireGuard es `/opt/liltress-workstation/vpn/wireguard/<name>/`.<br/>
 Cada perfil OpenVPN es `/opt/liltress-workstation/vpn/openvpn/<name>/`.<br/>
-El archivo `meta` de ese directorio registra la marca.<br/>
+El archivo `meta` de ese directorio registra la marca.
+
 El registro es `/opt/liltress-workstation/vpn/vpn.json`.<br/>
 `vpn list` muestra el nombre, el protocolo, la marca y las fechas.<br/>
-SSH permanece fuera del túnel.<br/>
+SSH permanece fuera del túnel.
+
 El archivo de desvío es un prefijo por línea, o una línea entre corchetes. El ejemplo es `[192.168.1.0/24, 200.200.200.0/24]`.
+
+## ▪️ Desvío
 
 ```bash
 sudo ./liltress vpn bypass
@@ -89,20 +104,24 @@ sudo ./liltress vpn refresh-endpoint <name>
 
 Unbound se reinicia después de un cambio de modo o de un cambio de perfil.<br/>
 El IPv6 global se bloquea cuando el túnel no tiene IPv6.<br/>
-Un rango público escrito en el archivo de desvío sale en claro.<br/>
+Un rango público escrito en el archivo de desvío sale en claro.
+
 Después de retirar el último perfil, el siguiente perfil válido vuelve a ser el VPN de arranque y arma el killswitch.
 
 ## 📋 Formas de importación
 
 El directorio o el archivo contiene exactamente los nombres de archivo de la marca.<br/>
 Un archivo de más, un archivo que falta o el archivo del otro protocolo se rechaza.<br/>
-Se abre un directorio. `auth.txt` puede estar junto a ese directorio.<br/>
+Se abre un directorio. `auth.txt` puede estar junto a ese directorio.
+
 El diario del día es `log/vpn/YYYY-MM-DD.log`.<br/>
 Si la palabra `REPLACE` sigue presente, la importación se detiene antes del handshake.<br/>
-La dirección de ejemplo `203.0.113.10` no puede abrir un túnel.<br/>
+La dirección de ejemplo `203.0.113.10` no puede abrir un túnel.
+
 `auth.txt` tiene dos líneas: el nombre y después el secreto.<br/>
 Un certificado escrito dentro del archivo permanece en el perfil.<br/>
-Un certificado nombrado junto al archivo se copia con ese nombre.<br/>
+Un certificado nombrado junto al archivo se copia con ese nombre.
+
 Los scripts `up` y `down` del proveedor no se copian.<br/>
 El DNS del proveedor no se usa. Unbound permanece como resolutor.<br/>
 El primer `remote` es el servidor que se abre.

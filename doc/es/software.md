@@ -20,8 +20,6 @@
 
 ---
 
-## 📋 Esta guía
-
 La instalación coloca los paquetes y servicios de abajo. Cada uno se configura desde `config/service/<name>/` y el script correspondiente bajo `service/`.
 
 | Nombre | Papel | Qué cambia el puesto |
@@ -49,3 +47,12 @@ La instalación coloca los paquetes y servicios de abajo. Cada uno se configura 
 | apt-listchanges, needrestart, apt-show-versions | Avisos de paquetes | Avisos de cambios y comprobaciones de reinicio. El correo de aviso de reinicio no reinicia la máquina. |
 
 Un archivo de servicio no es una segunda copia de una variable de contrato. Los valores viven en `global.conf`, `user.conf` o `secrets.conf`.
+
+## ▪️ Lo que no cambia
+
+IPv6 global no se corta.<br/>
+`/tmp` no se monta `noexec`.<br/>
+SSH sigue con contraseña. No queda solo por clave.
+
+La swap no se recrea.<br/>
+Esos cuatro puntos son ajustes de servidor. No se aplican en este puesto.

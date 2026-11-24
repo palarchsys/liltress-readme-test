@@ -20,8 +20,6 @@
 
 ---
 
-## 📋 Dieser Leitfaden
-
 Die Installation legt die Pakete und Dienste unten an. Jeder wird aus `config/service/<name>/` und dem passenden Skript unter `service/` konfiguriert.
 
 | Name | Rolle | Was der Arbeitsplatz ändert |
@@ -49,3 +47,12 @@ Die Installation legt die Pakete und Dienste unten an. Jeder wird aus `config/se
 | apt-listchanges, needrestart, apt-show-versions | Pakethinweise | Änderungshinweise und Neustartprüfungen. Die Neustartmail startet die Maschine nicht neu. |
 
 Eine Dienstdatei ist keine zweite Kopie einer Vertragsvariable. Die Werte stehen in `global.conf`, `user.conf` oder `secrets.conf`.
+
+## ▪️ Was gleich bleibt
+
+Globales IPv6 wird nicht abgeschaltet.<br/>
+`/tmp` wird nicht mit `noexec` eingehängt.<br/>
+SSH bleibt beim Passwort. Es wird nicht auf Schlüssel beschränkt.
+
+Der Swap wird nicht neu angelegt.<br/>
+Diese vier Punkte sind Server-Einstellungen. Sie gelten nicht für diesen Arbeitsplatz.

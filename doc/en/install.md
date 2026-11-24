@@ -28,7 +28,8 @@ Three points come before installation: the system, access, and the external need
 
 Ubuntu 26.04 or newer, including an interim release.<br/>
 A fresh installation is preferred.<br/>
-Use a local console or the existing graphical session.<br/>
+Use a local console or the existing graphical session.
+
 The machine needs Internet access.
 
 ## ▪️ Access
@@ -52,7 +53,8 @@ curl -fsSL https://raw.githubusercontent.com/palarchsys/liltress-workstation/mai
 
 `install.sh` asks `[O/N]` on the terminal.<br/>
 `O` replaces the installed tree with the fetched branch.<br/>
-`O` runs `script/run.sh` when `script/configure.sh --check` succeeds.<br/>
+`O` runs `script/run.sh` when `script/configure.sh --check` succeeds.
+
 Any other answer stops.<br/>
 A failed check runs `script/configure.sh`.
 

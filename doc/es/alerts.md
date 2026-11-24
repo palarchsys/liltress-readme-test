@@ -22,7 +22,8 @@
 
 Cada archivo de alerta se guarda bajo `/opt/liltress-workstation/cron/alerts`.<br/>
 El correo sigue `LANGUAGE`.<br/>
-El correo solo sale cuando `MAIL_ALERTS=1`, `WATCHDOG_MAIL` está definido y `/opt/liltress-workstation/service/cron/watchdogs/send.sh` es ejecutable.<br/>
+El correo solo sale cuando `MAIL_ALERTS=1`, `WATCHDOG_MAIL` está definido y `/opt/liltress-workstation/service/cron/watchdogs/send.sh` es ejecutable.
+
 Una comprobación limpia no envía correo.<br/>
 Si una línea del diario es desconocida, no ejecute el comando. Conserve el correo.<br/>
 Una comprobación que se detiene antes de su final normal envía correo. El correo nombra la comprobación y la señal o el código de salida.
@@ -55,10 +56,12 @@ Una detección confirmada mueve el archivo y adjunta en su lugar el comando de r
 
 El mensaje contiene el resumen y el extracto. No añade un bloque de comando.<br/>
 La comprobación reinstala cada paquete que sigue denunciado con `apt-get install --reinstall`.<br/>
-El correo nombra cada paquete restaurado.<br/>
+El correo nombra cada paquete restaurado.
+
 La línea de éxito es `La somme correspond.`<br/>
 Un paquete cuya suma sigue siendo distinta, o cuya reinstalación falla, permanece en el correo.<br/>
-Una línea de `/var/lib/rkhunter/db/mirrors.dat` se retira antes de esa reinstalación solo cuando su SHA-256 actual es igual a `/opt/liltress-workstation/cron/rkhunter-mirrors.sha256`.<br/>
+Una línea de `/var/lib/rkhunter/db/mirrors.dat` se retira antes de esa reinstalación solo cuando su SHA-256 actual es igual a `/opt/liltress-workstation/cron/rkhunter-mirrors.sha256`.
+
 Una línea cambiada bajo `/usr/lib/*/perl-base/unicore/` del paquete `perl-base` se retira antes de esa reinstalación. El archivo entregado por Ubuntu no coincide con esa suma del paquete.
 
 ## 📋 ClamAV al acceso
@@ -77,7 +80,8 @@ El registro es `/var/lib/liltress-workstation/watchdog/quarantine.registry`.
 
 Ambos mensajes contienen el resumen y el extracto del diario. Un archivo movido añade un comando de restauración, el mismo comando que al acceso.<br/>
 La forma del diario es `/opt/liltress-workstation/cron/security_logs/clamav-YYYYMMDD-HHMMSS.log`.<br/>
-La cadena periódica se ejecuta cada hora. El mismo análisis también se ejecuta una vez en la cadena de arranque.<br/>
+La cadena periódica se ejecuta cada hora. El mismo análisis también se ejecuta una vez en la cadena de arranque.
+
 El recorrido periódico incluye las rutas excluidas del análisis al acceso.<br/>
 Un archivo ilegible, sin línea `FOUND`, no envía correo. Las líneas `Known viruses` e `Infected files` no se copian al correo.<br/>
 Un `clamscan` detenido por una señal envía correo. El correo nombra la señal y cada archivo no leído. Los demás archivos del paso se analizan. Dos caídas seguidas detienen el paso de ClamAV. El correo dice entonces que los archivos restantes no se leyeron.
@@ -100,6 +104,7 @@ Los archivos de `/dev/shm` y el socket `/dev/log` están permitidos en `rkhunter
 
 El mensaje es `Un redémarrage est utile. La machine n'a pas été redémarrée.`<br/>
 Este correo no añade un bloque de comando.<br/>
-El mismo conjunto de paquetes no vuelve a enviar el correo.<br/>
+El mismo conjunto de paquetes no vuelve a enviar el correo.
+
 El script no reinicia la máquina.<br/>
 La forma del diario es `/opt/liltress-workstation/cron/security_logs/reboot-notice-YYYYMMDD-HHMMSS.log`.

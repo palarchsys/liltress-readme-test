@@ -20,73 +20,633 @@
 
 ---
 
-Chaque commande ci-dessous est une entrée réelle de `./liltress`. Lancez-les depuis `/opt/liltress-workstation`, sauf mention contraire.<br/>
-Le texte de succès est la ligne imprimée par le script. Il n'est pas traduit.
+## 📋 Le lanceur
 
-## 📋 liltress
+Ces commandes préparent, installent ou inspectent le poste.
 
-| Commande | Effet | Succès ou sortie |
-| --- | --- | --- |
-| `./liltress help` | Liste les commandes reconnues : `configure`, `check`, `run`, `lynis`, `logs`, `vpn`, `verify`, `maintain`, `timer`, `install`, `help`. `-h` et `--help` affichent la même aide. | Une commande inconnue affiche la ligne de commande inconnue et sort en `2`. |
-| `sudo ./liltress configure` | Pose les questions, écrit `global.conf` en mode `644` et `secrets.conf` en mode `600`, puis lance `script/run.sh`. | Essai mail : `Essai d'envoi accepté.` Courrier coupé : `Alertes e-mail coupées. Les contrôles partiront sans envoi.` |
-| `sudo ./liltress check` | Contrôle `global.conf` et `secrets.conf` sans les réécrire. Équivaut à `script/configure.sh --check`. | `Configuration conforme` |
-| `sudo ./liltress run` | Lance l'installation depuis les fichiers préparés. Refuse de démarrer si le contrôle échoue. Enchaîne la purge, les paquets, le durcissement, les contrôles, les bases AIDE et rkhunter, puis `verify workstation`. | L'installeur s'arrête si le contrôle échoue. |
-| `sudo ./liltress lynis` | Lance `lynis audit system --quick --no-colors`. Écrit le rapport sous `<source>/log/lynis-<date>/`. | La dernière ligne commence par `Rapport :` |
-| `sudo ./liltress logs` | Copie un instantané dans `<source>/log/snapshot-<date>-<hôte>`. Les fichiers privés (`secrets.conf`, clés, mots de passe) ne sont pas copiés. Un fichier de plus de 8 Mio est tronqué, et la coupe est notée dans `snapshot/truncated.txt`. | Le dossier d'instantané est le résultat. |
+## ▪️ help
 
-## 📋 vpn
+Affiche les commandes liltress.
 
-| Commande | Effet |
-| --- | --- |
-| `sudo ./liltress vpn status` | Affiche le mode `on` ou `off`, le killswitch armé ou non, et le profil actif. |
-| `sudo ./liltress vpn list` | Liste les profils : nom, protocole, validité, date de validation, date observée, dernier essai. |
-| `sudo ./liltress vpn import wireguard <brand> <name> <directory or file>` | Copie le profil sous `/opt/liltress-workstation/vpn/wireguard/<name>/` et le teste. Le premier profil valide arme le mode. |
-| `sudo ./liltress vpn import openvpn <brand> <name> <directory or file>` | Copie les fichiers cités. Un `auth-user-pass` sans chemin reçoit `auth.txt`. Le tunnel ne s'ouvre pas si le fichier d'identifiants a moins de deux lignes. |
-| `sudo ./liltress vpn test <name>` | Reteste un profil. Un échec ne retire pas la date de validation. |
-| `sudo ./liltress vpn switch <name>` | Bascule vers un autre profil encore valide. Ne descend pas un profil. Relance les services qui en dépendent, dont Unbound. |
-| `sudo ./liltress vpn mode on` | Arme le mode VPN. Le tunnel et le killswitch restent jusqu'à un arrêt manuel. SSH ne passe pas par le tunnel. |
-| `sudo ./liltress vpn mode off` | Arrête le mode VPN. Le réseau redevient direct et le killswitch est retiré. Un essai réussi ensuite ne réarme pas le mode. |
-| `sudo ./liltress vpn rm <name>` | Retire un profil. Le profil actif ne peut pas être retiré. Efface le dossier et la ligne du registre. |
-| `sudo ./liltress vpn bypass` | Affiche les préfixes hors tunnel. Le fichier est `/opt/liltress-workstation/vpn/bypass.cidrs`. |
-| `sudo ./liltress vpn bypass reload` | Recharge ces préfixes. Les routes de contournement sont réappliquées si le killswitch est armé. |
-| `sudo ./liltress vpn refresh-endpoint <name>` | Résout à nouveau le nom DNS et remplace l'extrémité enregistrée. |
-| `sudo ./liltress vpn default` | Affiche le profil de démarrage, ou aucun. |
-| `sudo ./liltress vpn default <name>` | Choisit un profil valide comme VPN de démarrage. La session en cours ne change pas. |
-| `sudo ./liltress vpn default off` | Efface ce choix. Un tunnel ouvert reste monté. |
+```bash
+./liltress help
+```
 
-Le détail des imports, des marques et du killswitch est dans [vpn.md](vpn.md).
+Commandes reconnues : configure, check, run, lynis, logs, vpn, verify, maintain, timer, install, help.<br/>
+-h et --help affichent la même aide.<br/>
+Une commande inconnue affiche commande inconnue et sort avec le code 2.
 
-## 📋 verify
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
 
-| Commande | Effet | Succès ou sortie |
-| --- | --- | --- |
-| `sudo ./liltress verify alerts` | Contrôle le timer de démarrage, le timer périodique, ClamAV à l'accès et le chemin du courrier. Envoie une sonde si les alertes sont activées. Le sujet se termine par `Contrôle`. | `Résultat : OK` |
-| `sudo ./liltress verify alerts --no-send` | Même contrôle. Aucune sonde. | `Résultat : OK` |
-| `sudo ./liltress verify workstation` | Contrôle après installation. Contrôle aussi le relais SSH, la règle de pare-feu SSH, USBGuard, le délai sudo et `w-reboot-notice.timer`. | `Check Success : N`, `Check Warnings : N`, `Check Fails : N` |
-| `sudo ./liltress verify boot` | Lance `script/boot-check.sh` depuis les sources. | `Contrôle de démarrage : OK` |
-| `sudo ./liltress verify boot-check` | Même contrôle depuis n'importe quel répertoire de la machine. | En cours : `Contrôle de démarrage : en cours`, sortie `1`. Écart : `Contrôle de démarrage : écarts`, sortie `1`. |
-| `sudo ./liltress verify chkrootkit` | Relève une passe chkrootkit pour lecture humaine. Journal : `/var/log/liltress-workstation/chkrootkit-fp-<date>.log`. | N'écrit pas la liste d'ignorés. |
+Source : `src/share/core/run/launch.sh`
 
-## 📋 maintain
+## ▪️ configure
 
-| Commande | Effet | Ligne de succès |
-| --- | --- | --- |
-| `sudo ./liltress maintain aide` | Lance `aide --init` et remplace `/var/lib/aide/aide.db`. Peut prendre plusieurs minutes. | `Base de référence AIDE enregistrée.` |
-| `sudo ./liltress maintain rkhunter` | Lance `rkhunter --propupd --nocolors`. | `Base de propriétés rkhunter enregistrée.` |
-| `sudo ./liltress maintain chkrootkit <journal>` | Enregistre les lignes nouvelles d'un `chkrootkit-DATE.log` déjà sous `cron/security_logs/`. | `Aucune nouvelle détection à enregistrer.` ou `N détection(s) enregistrée(s) dans /opt/liltress-workstation/cron/chkrootkit.local.ignore` |
-| `sudo ./liltress maintain debsums <journal>` | Enregistre les lignes d'un `debsums-DATE.log` dans `/opt/liltress-workstation/cron/debsums.local.ignore`. Le courrier debsums ne propose pas cette commande : le contrôle réinstalle déjà chaque paquet encore signalé. | Les deux mêmes formes, avec `debsums.local.ignore`. |
-| `sudo ./liltress maintain scan-skip list` | Liste les chemins exclus de l'accès ClamAV. Fichier : `/opt/liltress-workstation/config/service/clamav/scan-skip.paths`. | Un chemin accepté par ligne. Chemin refusé sur l'erreur : `Chemin refusé : <path>`. |
-| `sudo ./liltress maintain scan-skip add <path>` | Ajoute une exclusion, réécrit le bloc de `/etc/clamav/clamd.conf`, relance `clamav-daemon`, puis `clamav-clamonacc.service` ou `clamonacc.service`. | `Chemin ajouté : <path>` |
-| `sudo ./liltress maintain scan-skip del <path>` | Retire une exclusion et réécrit `clamd.conf` de la même façon. | `Chemin retiré : <path>` |
-| `sudo ./liltress maintain mirrors save` | Écrit le SHA-256 de `/var/lib/rkhunter/db/mirrors.dat` dans `/opt/liltress-workstation/cron/rkhunter-mirrors.sha256`, mode `600`. | Pas de bandeau fixe. Le fichier est le résultat. |
-| `sudo ./liltress maintain mirrors check` | Compare l'empreinte actuelle à celle enregistrée. N'affiche rien. | Sortie `0` si elles sont égales, ou si aucune empreinte n'est encore enregistrée. Toute autre sortie signifie un écart. |
-| `sudo ./liltress maintain restore <id>` | Remet un fichier de quarantaine. L'identifiant est une ligne de `cron/quarantine.registry`. Script : `core/quarantine/restore.sh`. | `fichier remis en place` |
-| `sudo ./liltress maintain mail` | Envoie un essai de mise en page au destinataire configuré. Script : `core/mail/mail-test.sh`. | Le message d'essai est le résultat. |
+Prépare la configuration, puis installe.
 
-## ▪️ Limites de scan-skip
+```bash
+sudo ./liltress configure
+```
 
-Un chemin est accepté sous le home du compte du poste, et plus bas que ce home.<br/>
-`/`, `/home`, `/opt`, `/tmp`, `/etc`, `/usr`, `/var`, `/boot`, `/root`, le home entier, Téléchargements, Bureau et leur parent sont refusés.<br/>
-Déjà présent : `Ce chemin est déjà exclu : <path>`.<br/>
-Absent au retrait : `Ce chemin n'est pas dans la liste : <path>`, sortie `1`.<br/>
-Un chemin refusé laisse le fichier inchangé.
+Le script pose les questions, écrit global.conf en mode 644 et secrets.conf en mode 600, puis lance script/run.sh.<br/>
+Le jeton Ubuntu Pro est obligatoire.<br/>
+Les alertes se répondent par Y ou n.
+
+Si elles sont activées, le serveur SMTP, le login, le mot de passe d'application et l'adresse From sont demandés, et swaks doit recevoir un 250.<br/>
+MODE_TEST se répond par 0 ou 1.<br/>
+Le défaut livré est 1.
+
+Une option inconnue est refusée.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Succès : `Essai d'envoi accepté.`
+
+Succès : `Alertes e-mail coupées. Les contrôles partiront sans envoi.`
+
+Source : `src/workstation/script/configure.sh`
+
+## ▪️ check
+
+Vérifie global.conf et secrets.conf sans les réécrire.
+
+```bash
+sudo ./liltress check
+```
+
+Le code 0 signifie que les deux fichiers sont conformes.<br/>
+secrets.conf est en mode 600, donc sudo est requis pour le lire.<br/>
+Équivaut à script/configure.sh --check.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Succès : `Configuration conforme`
+
+Source : `src/workstation/script/configure.sh`
+
+## ▪️ run
+
+Lance l'installation à partir des fichiers déjà préparés.
+
+```bash
+sudo ./liltress run
+```
+
+L'installeur refuse de démarrer si le contrôle de configuration échoue.<br/>
+Il enchaîne la purge, les paquets, le durcissement, les contrôles de sécurité, les bases AIDE et rkhunter, puis verify/workstation.sh.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/script/run.sh`
+
+## ▪️ lynis
+
+Lance un audit Lynis du poste.
+
+```bash
+sudo ./liltress lynis
+```
+
+La commande réelle est lynis audit system --quick --no-colors.<br/>
+Le rapport est écrit sous <source>/log/lynis-<date>/.<br/>
+La dernière ligne affiche Rapport : suivi de ce dossier.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Succès : `Rapport :`
+
+Source : `src/share/core/run/lynis.sh`
+
+## ▪️ logs
+
+Copie un instantané des journaux dans les sources.
+
+```bash
+sudo ./liltress logs
+```
+
+Le dossier créé est <source>/log/snapshot-<date>-<hôte>.<br/>
+Les fichiers privés (secrets.conf, clés, mots de passe) ne sont pas copiés.<br/>
+Un fichier de plus de 8 Mio est tronqué, et la coupe est notée dans snapshot/truncated.txt.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/share/script/log-collect.sh`
+
+## 📋 VPN
+
+Ces commandes gèrent les profils.
+
+## ▪️ vpn status
+
+Affiche le mode VPN, le killswitch et le profil actif.
+
+```bash
+sudo ./liltress vpn status
+```
+
+Le mode est on ou off.<br/>
+Le killswitch est armé ou désarmé.<br/>
+Sans profil actif, la ligne le dit.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn list
+
+Liste les profils VPN enregistrés.
+
+```bash
+sudo ./liltress vpn list
+```
+
+Chaque ligne donne le nom, le protocole, la validité, la date de validation, la date observée et la date du dernier essai.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn import wireguard <marque> <nom> <dossier ou fichier>
+
+Importe un profil WireGuard.
+
+```bash
+sudo ./liltress vpn import wireguard <marque> <nom> <dossier ou fichier>
+```
+
+Le fichier est copié sous /opt/liltress-workstation/vpn/wireguard/<nom>/.<br/>
+Un essai valide le profil.<br/>
+Le mode s'arme au premier profil valide.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn import openvpn <marque> <nom> <dossier ou fichier>
+
+Importe un profil OpenVPN.
+
+```bash
+sudo ./liltress vpn import openvpn <marque> <nom> <dossier ou fichier>
+```
+
+Les fichiers cités par le profil sont copiés.<br/>
+Un auth-user-pass sans chemin reçoit auth.txt.<br/>
+Le tunnel n'est pas ouvert si le fichier d'identifiants a moins de deux lignes.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn test <nom>
+
+Reteste un profil et le revalide s'il répond.
+
+```bash
+sudo ./liltress vpn test <nom>
+```
+
+Trois dates sont tenues : validation, dernier état observé, dernier essai.<br/>
+Un échec ne retire pas la date de validation.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn switch <nom>
+
+Bascule vers un autre profil déjà validé.
+
+```bash
+sudo ./liltress vpn switch <nom>
+```
+
+La commande ne descend pas un profil.<br/>
+Elle ne choisit qu'un profil encore valide.<br/>
+Les services qui en dépendent, dont Unbound, sont relancés.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn mode on
+
+Arme le mode VPN.
+
+```bash
+sudo ./liltress vpn mode on
+```
+
+Le tunnel et le killswitch restent jusqu'à un arrêt manuel.<br/>
+SSH ne passe pas par le tunnel.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn mode off
+
+Arrête le mode VPN.
+
+```bash
+sudo ./liltress vpn mode off
+```
+
+Le réseau redevient direct et le killswitch est retiré.<br/>
+Un essai réussi ensuite ne réarme pas le mode.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn rm <nom>
+
+Retire un profil VPN.
+
+```bash
+sudo ./liltress vpn rm <nom>
+```
+
+Le profil actif ne peut pas être retiré.<br/>
+La commande efface le dossier et la ligne du registre.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn bypass
+
+Affiche les préfixes qui restent hors du tunnel.
+
+```bash
+sudo ./liltress vpn bypass
+```
+
+La liste lue est /opt/liltress-workstation/vpn/bypass.cidrs.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn bypass reload
+
+Recharge les préfixes hors tunnel.
+
+```bash
+sudo ./liltress vpn bypass reload
+```
+
+Les routes de contournement sont réappliquées si le killswitch est armé.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+## ▪️ vpn refresh-endpoint <nom>
+
+Recalcule l'adresse du serveur VPN.
+
+```bash
+sudo ./liltress vpn refresh-endpoint <nom>
+```
+
+Le nom DNS du profil est résolu à nouveau.<br/>
+L'adresse obtenue remplace l'extrémité enregistrée.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/service/vpn/cli.sh`
+
+Les marques, le killswitch et le profil de démarrage sont dans [vpn.md](vpn.md).
+
+## 📋 Contrôles
+
+Ces commandes contrôlent. Elles ne reconstruisent pas une base.
+
+## ▪️ verify alerts
+
+Contrôle la chaîne d'alertes et envoie une sonde.
+
+```bash
+sudo ./liltress verify alerts
+```
+
+La passe contrôle le timer de démarrage, le timer périodique, ClamAV à l'accès et le chemin du courrier.<br/>
+Un seul message d'essai part lorsque les alertes sont activées.<br/>
+Le sujet se termine par Contrôle.
+
+-h et --help affichent l'usage.<br/>
+Une autre option est refusée.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Succès : `Résultat : OK`
+
+Source : `src/workstation/script/verify/alerts.sh`
+
+## ▪️ verify alerts --no-send
+
+Même contrôle d'alertes, sans sonde.
+
+```bash
+sudo ./liltress verify alerts --no-send
+```
+
+Même périmètre que verify/alerts.sh.<br/>
+Aucun message d'essai n'est envoyé.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Succès : `Résultat : OK`
+
+Source : `src/workstation/script/verify/alerts.sh`
+
+## ▪️ verify workstation
+
+Vérifie le poste après installation.
+
+```bash
+sudo ./liltress verify workstation
+```
+
+Le premier argument est le répertoire des sources.<br/>
+Les lignes de clôture sont Check Success : N, Check Warnings : N et Check Fails : N.<br/>
+La passe contrôle le relais SSH, la règle de pare-feu SSH, USBGuard, le délai sudo et w-reboot-notice.timer.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Succès : `Check Success : N`
+
+Source : `src/workstation/script/verify/workstation.sh`
+
+## ▪️ verify boot-check
+
+Vérifie les services de sécurité de ce démarrage.
+
+```bash
+sudo ./liltress verify boot-check
+```
+
+Une passe encore en cours affiche Contrôle de démarrage : en cours et sort en 1.<br/>
+Un écart affiche Contrôle de démarrage : écarts et sort en 1.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Succès : `Contrôle de démarrage : OK`
+
+Source : `src/workstation/script/boot-check.sh`
+
+## ▪️ verify boot
+
+Lance boot-check.sh depuis les sources.
+
+```bash
+sudo ./liltress verify boot
+```
+
+script/verify/boot.sh exécute script/boot-check.sh du même arbre.<br/>
+Le résultat est celui de boot-check.sh.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Succès : `Contrôle de démarrage : OK`
+
+Source : `src/workstation/script/verify/boot.sh`
+
+## ▪️ verify chkrootkit
+
+Relève une passe chkrootkit pour lecture humaine.
+
+```bash
+sudo ./liltress verify chkrootkit
+```
+
+Le journal est /var/log/liltress-workstation/chkrootkit-fp-<date>.log.<br/>
+Cette commande n'enregistre rien dans la liste d'ignorés.
+
+Lancez-la depuis `/opt/liltress-workstation`, ou depuis le clone.
+
+Source : `src/workstation/script/verify/chkrootkit-fp.sh`
+
+## 📋 Maintenance
+
+Ces commandes reconstruisent une base, enregistrent une liste d'ignorés, ou remettent un fichier.
+
+## ▪️ maintain aide
+
+Reconstruit la base AIDE.
+
+```bash
+sudo ./liltress maintain aide
+```
+
+La commande lance aide --init et remplace /var/lib/aide/aide.db.<br/>
+Le calcul peut prendre plusieurs minutes.<br/>
+C'est la commande jointe au courrier AIDE.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Succès : `Base de référence AIDE enregistrée.`
+
+Source : `src/workstation/service/aide/refresh-db.sh`
+
+Installé : `/opt/liltress-workstation/service/aide/refresh-db.sh`
+
+## ▪️ maintain rkhunter
+
+Recalcule la base de propriétés rkhunter.
+
+```bash
+sudo ./liltress maintain rkhunter
+```
+
+La commande lance rkhunter --propupd --nocolors.<br/>
+C'est la commande jointe au courrier d'avertissements rkhunter.<br/>
+Le courrier mirrors.dat modifié hors rkhunter --update ne la joint pas.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Succès : `Base de propriétés rkhunter enregistrée.`
+
+Source : `src/share/service/rkhunter/refresh-db.sh`
+
+Installé : `/opt/liltress-workstation/service/rkhunter/refresh-db.sh`
+
+## ▪️ maintain chkrootkit <journal>
+
+Enregistre les lignes d'un journal chkrootkit comme ignorées.
+
+```bash
+sudo ./liltress maintain chkrootkit <journal>
+```
+
+Le fichier doit être un chkrootkit-DATE.log déjà écrit sous cron/security_logs/.<br/>
+Les lignes nouvelles sont ajoutées à /opt/liltress-workstation/cron/chkrootkit.local.ignore.<br/>
+S'il n'y a rien de nouveau, la ligne est Aucune nouvelle détection à enregistrer.
+
+Sinon N détection(s) enregistrée(s) dans ce fichier.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Succès : `Aucune nouvelle détection à enregistrer.`
+
+Succès : `N détection(s) enregistrée(s) dans /opt/liltress-workstation/cron/chkrootkit.local.ignore`
+
+Source : `src/workstation/service/chkrootkit/ignore-log.sh`
+
+Installé : `/opt/liltress-workstation/service/chkrootkit/ignore-log.sh`
+
+## ▪️ maintain debsums <journal>
+
+Enregistre les lignes d'un journal debsums comme ignorées.
+
+```bash
+sudo ./liltress maintain debsums <journal>
+```
+
+Le fichier doit être un debsums-DATE.log sous cron/security_logs/.<br/>
+Les motifs vont dans /opt/liltress-workstation/cron/debsums.local.ignore.<br/>
+Les messages de succès sont les mêmes que pour chkrootkit.
+
+Le courrier debsums ne propose pas cette commande : le contrôle réinstalle déjà chaque paquet encore signalé.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Succès : `Aucune nouvelle détection à enregistrer.`
+
+Succès : `N détection(s) enregistrée(s) dans /opt/liltress-workstation/cron/debsums.local.ignore`
+
+Source : `src/workstation/service/debsums/ignore-log.sh`
+
+Installé : `/opt/liltress-workstation/service/debsums/ignore-log.sh`
+
+## ▪️ maintain scan-skip list
+
+Liste les chemins exclus de l'accès ClamAV.
+
+```bash
+sudo ./liltress maintain scan-skip list
+```
+
+Un chemin accepté est affiché par ligne.<br/>
+Un chemin refusé est écrit sur l'erreur : Chemin refusé : <path>.<br/>
+Le fichier est /opt/liltress-workstation/config/service/clamav/scan-skip.paths.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Source : `src/workstation/script/scan-skip.sh`
+
+Installé : `/opt/liltress-workstation/script/scan-skip.sh`
+
+## ▪️ maintain scan-skip add <chemin>
+
+Ajoute un chemin exclu de l'accès ClamAV.
+
+```bash
+sudo ./liltress maintain scan-skip add <chemin>
+```
+
+S'il est déjà présent : Ce chemin est déjà exclu : <path>.<br/>
+Un refus laisse le fichier inchangé et affiche Chemin refusé : <path>.<br/>
+Un chemin est accepté sous le home du compte du poste, plus bas que ce home.
+
+/, /home, /opt, /tmp, /etc, /usr, /var, /boot, /root, le home entier, Téléchargements, Bureau et leur parent sont refusés.<br/>
+Après un changement, la commande réécrit le bloc d'exclusion de /etc/clamav/clamd.conf et relance clamav-daemon, puis clamav-clamonacc.service ou clamonacc.service.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Succès : `Chemin ajouté : <path>`
+
+Source : `src/workstation/script/scan-skip.sh`
+
+Installé : `/opt/liltress-workstation/script/scan-skip.sh`
+
+## ▪️ maintain scan-skip del <chemin>
+
+Retire un chemin de la liste d'exclusion ClamAV.
+
+```bash
+sudo ./liltress maintain scan-skip del <chemin>
+```
+
+S'il est absent, la commande affiche Ce chemin n'est pas dans la liste : <path> et sort en 1.<br/>
+La même réécriture de clamd.conf suit un retrait réussi.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Succès : `Chemin retiré : <path>`
+
+Source : `src/workstation/script/scan-skip.sh`
+
+Installé : `/opt/liltress-workstation/script/scan-skip.sh`
+
+## ▪️ maintain mirrors save
+
+Enregistre l'empreinte des miroirs rkhunter.
+
+```bash
+sudo ./liltress maintain mirrors save
+```
+
+Le SHA-256 de /var/lib/rkhunter/db/mirrors.dat est écrit dans /opt/liltress-workstation/cron/rkhunter-mirrors.sha256, en mode 600.<br/>
+refresh-rkhunter-db.sh fait cet enregistrement seulement après un rkhunter --update qui retourne 0 ou 2.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Source : `src/workstation/service/cron/watchdogs/record-mirrors.sh`
+
+Installé : `/opt/liltress-workstation/service/cron/watchdogs/record-mirrors.sh`
+
+## ▪️ maintain mirrors check
+
+Compare l'empreinte rkhunter actuelle à celle enregistrée.
+
+```bash
+sudo ./liltress maintain mirrors check
+```
+
+Aucun texte n'est affiché.<br/>
+Le code 0 signifie que les deux empreintes sont égales, ou qu'aucune empreinte n'est encore enregistrée.<br/>
+Un écart sort avec un code différent de 0.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Source : `src/workstation/service/cron/watchdogs/record-mirrors.sh`
+
+Installé : `/opt/liltress-workstation/service/cron/watchdogs/record-mirrors.sh`
+
+## ▪️ maintain restore <id>
+
+Remet un fichier de quarantaine à son emplacement d'origine.
+
+```bash
+sudo ./liltress maintain restore <id>
+```
+
+L'identifiant est une ligne du registre cron/quarantine.registry.<br/>
+Le script est core/quarantine/restore.sh.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Source : `src/share/core/quarantine/restore.sh`
+
+Installé : `/opt/liltress-workstation/core/quarantine/restore.sh`
+
+## ▪️ maintain mail
+
+Envoie un courrier d'essai.
+
+```bash
+sudo ./liltress maintain mail
+```
+
+Le message sert à voir la largeur et la hauteur.<br/>
+Le destinataire reste celui de la configuration installée.<br/>
+Le script est core/mail/mail-test.sh.
+
+Elle peut partir de n'importe quel répertoire de la machine.
+
+Source : `src/share/core/mail/mail-test.sh`
+
+Installé : `/opt/liltress-workstation/core/mail/mail-test.sh`

@@ -22,7 +22,8 @@
 
 `sudo ./liltress configure` stellt die Fragen unten, schreibt `global.conf` mit Modus `644` und `secrets.conf` mit Modus `600` als root und startet dann `script/run.sh`.<br/>
 Die erste Frage wählt die Sprache.<br/>
-Der Wert ist `LANGUAGE`.<br/>
+Der Wert ist `LANGUAGE`.
+
 Die Vorgabe ist Englisch.<br/>
 `MODE_TEST` wird mit `0` oder `1` beantwortet. Der gelieferte Vorgabewert ist `1`.<br/>
 Eine unbekannte Option wird abgelehnt.
@@ -48,6 +49,7 @@ sudo ./liltress check
 
 Der Befehl prüft `global.conf` und `secrets.conf` und schreibt sie nicht neu.<br/>
 `secrets.conf` hat Modus `600`, deshalb ist `sudo` zum Lesen nötig.<br/>
-Code `0` bedeutet, dass beide Dateien stimmen.<br/>
+Code `0` bedeutet, dass beide Dateien stimmen.
+
 Die Erfolgszeile ist `Configuration conforme`.<br/>
 Das ist dieselbe Prüfung wie `script/configure.sh --check`.

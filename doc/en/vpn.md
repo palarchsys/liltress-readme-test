@@ -22,7 +22,7 @@
 
 The workstation install starts with no VPN. The network stays direct.
 
-## 📋 Commands
+## ▪️ Import
 
 ```bash
 sudo ./liltress vpn import openvpn <brand> <name> <directory or file>
@@ -31,9 +31,12 @@ sudo ./liltress vpn import wireguard <brand> <name> <directory or file>
 
 The brand is required. A file without a brand is refused.<br/>
 The first valid profile becomes the startup VPN and arms the killswitch.<br/>
-An invalid bundle is not added. When it is the first, the killswitch stays off.<br/>
+An invalid bundle is not added. When it is the first, the killswitch stays off.
+
 A later import, while mode is off, does not replace the startup VPN and does not arm the killswitch again.<br/>
 At startup, a valid startup VPN arms the killswitch, then opens that profile.
+
+## ▪️ Startup profile
 
 ```bash
 sudo ./liltress vpn default
@@ -45,6 +48,8 @@ sudo ./liltress vpn default off
 `vpn default <name>` selects it when it is valid. The current session stays as it is.<br/>
 `vpn default off` clears that choice. An open tunnel stays up.
 
+## ▪️ Mode
+
 ```bash
 sudo ./liltress vpn mode on
 sudo ./liltress vpn mode off
@@ -54,14 +59,19 @@ sudo ./liltress vpn mode off
 `vpn mode off` disarms the killswitch and returns to the direct network. The startup VPN stays for the next boot. The profile directories stay.<br/>
 The profile appears in Settings, Network. The toggle is the mode. Import is not the `+` button.
 
+## ▪️ Switch
+
 ```bash
 sudo ./liltress vpn switch <name>
 ```
 
 Moves to another valid profile. The killswitch stays armed during the switch. The startup VPN does not change.<br/>
 A failed switch does not restore direct Internet and does not remove a profile.<br/>
-A profile that has already answered, then fails three tries of ten seconds, is removed.<br/>
+A profile that has already answered, then fails three tries of ten seconds, is removed.
+
 When that removal takes the last profile, the network goes direct and the killswitch is disarmed. The alert mail is sent before that disarm.
+
+## ▪️ Removal and test
 
 ```bash
 sudo ./liltress vpn rm <name>
@@ -72,14 +82,19 @@ sudo ./liltress vpn status
 
 `vpn rm` removes a profile. Removing the startup VPN tries the next profile in the list, after a check. Removing the last one clears the startup VPN and disarms the killswitch.<br/>
 An active profile that is not the startup VPN stays while another profile exists.<br/>
-A failed `vpn test` leaves the directory.<br/>
+A failed `vpn test` leaves the directory.
+
 Each WireGuard profile is `/opt/liltress-workstation/vpn/wireguard/<name>/`.<br/>
 Each OpenVPN profile is `/opt/liltress-workstation/vpn/openvpn/<name>/`.<br/>
-The `meta` file in that directory records the brand.<br/>
+The `meta` file in that directory records the brand.
+
 The registry is `/opt/liltress-workstation/vpn/vpn.json`.<br/>
 `vpn list` shows the name, the protocol, the brand, and the dates.<br/>
-SSH stays off the tunnel.<br/>
+SSH stays off the tunnel.
+
 The bypass file is one prefix per line, or one bracket line. The example is `[192.168.1.0/24, 200.200.200.0/24]`.
+
+## ▪️ Bypass
 
 ```bash
 sudo ./liltress vpn bypass
@@ -89,20 +104,24 @@ sudo ./liltress vpn refresh-endpoint <name>
 
 Unbound is restarted after a mode change or a switch.<br/>
 Global IPv6 is blocked when the tunnel has no IPv6.<br/>
-A public range written in the bypass file leaves in the clear.<br/>
+A public range written in the bypass file leaves in the clear.
+
 After the last profile is removed, the next valid profile becomes the startup VPN again and arms the killswitch.
 
 ## 📋 Import forms
 
 The directory or the file holds exactly the brand file names.<br/>
 An extra file, a missing file, or the other protocol file is refused.<br/>
-One directory is opened. `auth.txt` may sit beside that directory.<br/>
+One directory is opened. `auth.txt` may sit beside that directory.
+
 The day journal is `log/vpn/YYYY-MM-DD.log`.<br/>
 If the word `REPLACE` is still present, the import stops before the handshake.<br/>
-The example address `203.0.113.10` cannot open a tunnel.<br/>
+The example address `203.0.113.10` cannot open a tunnel.
+
 `auth.txt` has two lines: the name, then the secret.<br/>
 A certificate written inside the file stays in the profile.<br/>
-A certificate named beside the file is copied under that name.<br/>
+A certificate named beside the file is copied under that name.
+
 Provider `up` and `down` scripts are not copied.<br/>
 Provider DNS is not used. Unbound stays the resolver.<br/>
 The first `remote` is the server that is opened.

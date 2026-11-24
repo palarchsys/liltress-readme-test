@@ -20,8 +20,6 @@
 
 ---
 
-## 📋 Ce guide
-
 L'installation place les paquets et les services ci-dessous. Chacun est configuré depuis `config/service/<name>/` et le script correspondant sous `service/`.
 
 | Nom | Rôle | Ce que le poste change |
@@ -49,3 +47,12 @@ L'installation place les paquets et les services ci-dessous. Chacun est configur
 | apt-listchanges, needrestart, apt-show-versions | Avis de paquets | Avis de changements et contrôles de redémarrage. Le courrier de redémarrage ne redémarre pas la machine. |
 
 Un fichier de service n'est pas une seconde valeur d'une variable de contrat. Les valeurs vivent dans `global.conf`, `user.conf` ou `secrets.conf`.
+
+## ▪️ Ce qui ne change pas
+
+L'IPv6 global n'est pas coupé.<br/>
+`/tmp` n'est pas monté `noexec`.<br/>
+SSH reste sur un mot de passe. Il n'est pas réservé aux clés.
+
+Le swap n'est pas recréé.<br/>
+Ces quatre points sont des réglages de serveur. Ils ne sont pas appliqués sur ce poste.

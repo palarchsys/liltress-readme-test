@@ -22,7 +22,8 @@
 
 Each alert file is stored under `/opt/liltress-workstation/cron/alerts`.<br/>
 The mail follows `LANGUAGE`.<br/>
-Mail leaves only when `MAIL_ALERTS=1`, `WATCHDOG_MAIL` is set, and `/opt/liltress-workstation/service/cron/watchdogs/send.sh` is executable.<br/>
+Mail leaves only when `MAIL_ALERTS=1`, `WATCHDOG_MAIL` is set, and `/opt/liltress-workstation/service/cron/watchdogs/send.sh` is executable.
+
 A clean check does not send mail.<br/>
 If a journal line is unknown, do not run the command. Keep the mail.<br/>
 A check that stops before its normal end sends mail. The mail names the check, and the signal or the exit code.
@@ -55,10 +56,12 @@ A confirmed detection moves the file and attaches the restore command instead. T
 
 The message contains the summary and the excerpt. It does not add a command block.<br/>
 The check reinstalls each package still reported with `apt-get install --reinstall`.<br/>
-The mail names each package restored.<br/>
+The mail names each package restored.
+
 The success line is `La somme correspond.`<br/>
 A package whose checksum stays different, or whose reinstall fails, stays in the mail.<br/>
-A line for `/var/lib/rkhunter/db/mirrors.dat` is removed before that reinstall only when its current SHA-256 equals `/opt/liltress-workstation/cron/rkhunter-mirrors.sha256`.<br/>
+A line for `/var/lib/rkhunter/db/mirrors.dat` is removed before that reinstall only when its current SHA-256 equals `/opt/liltress-workstation/cron/rkhunter-mirrors.sha256`.
+
 A changed line under `/usr/lib/*/perl-base/unicore/` of the `perl-base` package is removed before that reinstall. The file shipped by Ubuntu does not match that package checksum.
 
 ## 📋 ClamAV on access
@@ -77,7 +80,8 @@ The registry is `/var/lib/liltress-workstation/watchdog/quarantine.registry`.
 
 Both messages contain the summary and the journal excerpt. A moved file adds one restore command, the same command as on-access.<br/>
 The journal form is `/opt/liltress-workstation/cron/security_logs/clamav-YYYYMMDD-HHMMSS.log`.<br/>
-The periodic chain runs every 1 hour. The same scan also runs once in the boot chain.<br/>
+The periodic chain runs every 1 hour. The same scan also runs once in the boot chain.
+
 The periodic walk includes paths excluded from the on-access scan.<br/>
 An unreadable file, with no `FOUND` line, does not send mail. The lines `Known viruses` and `Infected files` are not copied into the mail.<br/>
 A `clamscan` stopped by a signal sends mail. The mail names the signal and each unread file. The other files of the pass are scanned. Two crashes in a row stop the ClamAV pass. The mail then says that the remaining files were not read.
@@ -100,6 +104,7 @@ The files in `/dev/shm` and the socket `/dev/log` are allowed in `rkhunter.conf.
 
 The message is `Un redémarrage est utile. La machine n'a pas été redémarrée.`<br/>
 This mail does not add a command block.<br/>
-The same set of packages does not send mail again.<br/>
+The same set of packages does not send mail again.
+
 The script does not reboot the machine.<br/>
 The journal form is `/opt/liltress-workstation/cron/security_logs/reboot-notice-YYYYMMDD-HHMMSS.log`.

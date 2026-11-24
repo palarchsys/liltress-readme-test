@@ -48,7 +48,8 @@ sudo ./liltress verify alerts
 
 Contrôle le timer de démarrage, le timer périodique, ClamAV à l'accès et le chemin du courrier.<br/>
 Sans `--no-send`, une sonde part lorsque les alertes sont activées.<br/>
-Le sujet se termine par `Contrôle`.<br/>
+Le sujet se termine par `Contrôle`.
+
 La ligne de succès est `Résultat : OK`.
 
 ```bash

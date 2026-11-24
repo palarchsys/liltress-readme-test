@@ -28,7 +28,8 @@ Tres puntos preceden a la instalación: el sistema, el acceso y las necesidades 
 
 Ubuntu 26.04 o más reciente, incluida una versión intermedia.<br/>
 Se prefiere una instalación limpia.<br/>
-Use una consola local o la sesión gráfica ya abierta.<br/>
+Use una consola local o la sesión gráfica ya abierta.
+
 La máquina necesita acceso a Internet.
 
 ## ▪️ Acceso
@@ -52,7 +53,8 @@ curl -fsSL https://raw.githubusercontent.com/palarchsys/liltress-workstation/mai
 
 `install.sh` pregunta `[O/N]` en el terminal.<br/>
 `O` sustituye el árbol instalado por la rama obtenida.<br/>
-`O` ejecuta `script/run.sh` cuando `script/configure.sh --check` tiene éxito.<br/>
+`O` ejecuta `script/run.sh` cuando `script/configure.sh --check` tiene éxito.
+
 Cualquier otra respuesta se detiene.<br/>
 Una comprobación fallida ejecuta `script/configure.sh`.
 

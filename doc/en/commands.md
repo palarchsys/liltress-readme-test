@@ -48,7 +48,8 @@ sudo ./liltress verify alerts
 
 Checks the boot-chain timer, the periodic timer, on-access ClamAV, and the mail path.<br/>
 Without `--no-send`, one probe is sent when alerts are enabled.<br/>
-The subject ends with `Contrôle`.<br/>
+The subject ends with `Contrôle`.
+
 The success line is `Résultat : OK`.
 
 ```bash

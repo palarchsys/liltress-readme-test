@@ -48,7 +48,8 @@ sudo ./liltress verify alerts
 
 Comprueba el temporizador de la cadena de arranque, el temporizador periódico, ClamAV al acceso y el camino del correo.<br/>
 Sin `--no-send`, se envía una sonda cuando las alertas están activadas.<br/>
-El asunto termina con `Contrôle`.<br/>
+El asunto termina con `Contrôle`.
+
 La línea de éxito es `Résultat : OK`.
 
 ```bash

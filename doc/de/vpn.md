@@ -22,7 +22,7 @@
 
 Die Installation des Arbeitsplatzes startet ohne VPN. Das Netz bleibt direkt.
 
-## 📋 Befehle
+## ▪️ Import
 
 ```bash
 sudo ./liltress vpn import openvpn <brand> <name> <directory or file>
@@ -31,9 +31,12 @@ sudo ./liltress vpn import wireguard <brand> <name> <directory or file>
 
 Die Marke ist Pflicht. Eine Datei ohne Marke wird abgelehnt.<br/>
 Das erste gültige Profil wird das Start-VPN und schärft den Killswitch.<br/>
-Ein ungültiges Bündel wird nicht hinzugefügt. Ist es das erste, bleibt der Killswitch aus.<br/>
+Ein ungültiges Bündel wird nicht hinzugefügt. Ist es das erste, bleibt der Killswitch aus.
+
 Ein späterer Import bei ausgeschaltetem Modus ersetzt das Start-VPN nicht und schärft den Killswitch nicht erneut.<br/>
 Beim Start schärft ein gültiges Start-VPN den Killswitch und öffnet dann dieses Profil.
+
+## ▪️ Startprofil
 
 ```bash
 sudo ./liltress vpn default
@@ -45,6 +48,8 @@ sudo ./liltress vpn default off
 `vpn default <name>` wählt es, wenn es gültig ist. Die laufende Sitzung bleibt.<br/>
 `vpn default off` löscht diese Wahl. Ein offener Tunnel bleibt oben.
 
+## ▪️ Modus
+
 ```bash
 sudo ./liltress vpn mode on
 sudo ./liltress vpn mode off
@@ -54,14 +59,19 @@ sudo ./liltress vpn mode off
 `vpn mode off` entschärft den Killswitch und kehrt zum direkten Netz zurück. Das Start-VPN bleibt für den nächsten Start. Die Profilverzeichnisse bleiben.<br/>
 Das Profil erscheint unter Einstellungen, Netzwerk. Der Schalter ist der Modus. Der Import ist nicht die Schaltfläche `+`.
 
+## ▪️ Wechsel
+
 ```bash
 sudo ./liltress vpn switch <name>
 ```
 
 Wechselt zu einem anderen gültigen Profil. Der Killswitch bleibt während des Wechsels scharf. Das Start-VPN ändert sich nicht.<br/>
 Ein fehlgeschlagener Wechsel stellt das direkte Internet nicht wieder her und entfernt kein Profil.<br/>
-Ein Profil, das bereits geantwortet hat und dann drei Versuche von zehn Sekunden scheitert, wird entfernt.<br/>
+Ein Profil, das bereits geantwortet hat und dann drei Versuche von zehn Sekunden scheitert, wird entfernt.
+
 Nimmt diese Entfernung das letzte Profil, wird das Netz direkt und der Killswitch entschärft. Die Alarmmail geht vor dieser Entschärfung hinaus.
+
+## ▪️ Entfernen und Test
 
 ```bash
 sudo ./liltress vpn rm <name>
@@ -72,14 +82,19 @@ sudo ./liltress vpn status
 
 `vpn rm` entfernt ein Profil. Das Entfernen des Start-VPN probiert das nächste Profil der Liste, nach einer Prüfung. Das Entfernen des letzten löscht das Start-VPN und entschärft den Killswitch.<br/>
 Ein aktives Profil, das nicht das Start-VPN ist, bleibt, solange ein anderes Profil existiert.<br/>
-Ein fehlgeschlagener `vpn test` lässt das Verzeichnis.<br/>
+Ein fehlgeschlagener `vpn test` lässt das Verzeichnis.
+
 Jedes WireGuard-Profil ist `/opt/liltress-workstation/vpn/wireguard/<name>/`.<br/>
 Jedes OpenVPN-Profil ist `/opt/liltress-workstation/vpn/openvpn/<name>/`.<br/>
-Die Datei `meta` in diesem Verzeichnis hält die Marke fest.<br/>
+Die Datei `meta` in diesem Verzeichnis hält die Marke fest.
+
 Das Register ist `/opt/liltress-workstation/vpn/vpn.json`.<br/>
 `vpn list` zeigt den Namen, das Protokoll, die Marke und die Daten.<br/>
-SSH bleibt außerhalb des Tunnels.<br/>
+SSH bleibt außerhalb des Tunnels.
+
 Die Bypass-Datei enthält ein Präfix je Zeile oder eine Klammerzeile. Das Beispiel ist `[192.168.1.0/24, 200.200.200.0/24]`.
+
+## ▪️ Umgehung
 
 ```bash
 sudo ./liltress vpn bypass
@@ -89,20 +104,24 @@ sudo ./liltress vpn refresh-endpoint <name>
 
 Unbound wird nach einem Moduswechsel oder einem Wechsel neu gestartet.<br/>
 Globales IPv6 wird gesperrt, wenn der Tunnel kein IPv6 hat.<br/>
-Ein öffentlicher Bereich in der Bypass-Datei geht im Klartext hinaus.<br/>
+Ein öffentlicher Bereich in der Bypass-Datei geht im Klartext hinaus.
+
 Nachdem das letzte Profil entfernt wurde, wird das nächste gültige Profil wieder das Start-VPN und schärft den Killswitch.
 
 ## 📋 Importformen
 
 Das Verzeichnis oder die Datei enthält genau die Dateinamen der Marke.<br/>
 Eine zusätzliche Datei, eine fehlende Datei oder die Datei des anderen Protokolls wird abgelehnt.<br/>
-Ein Verzeichnis wird geöffnet. `auth.txt` darf neben diesem Verzeichnis liegen.<br/>
+Ein Verzeichnis wird geöffnet. `auth.txt` darf neben diesem Verzeichnis liegen.
+
 Das Tagesjournal ist `log/vpn/YYYY-MM-DD.log`.<br/>
 Steht das Wort `REPLACE` noch in der Datei, stoppt der Import vor dem Handshake.<br/>
-Die Beispieladresse `203.0.113.10` kann keinen Tunnel öffnen.<br/>
+Die Beispieladresse `203.0.113.10` kann keinen Tunnel öffnen.
+
 `auth.txt` hat zwei Zeilen: den Namen, dann das Geheimnis.<br/>
 Ein Zertifikat, das in der Datei steht, bleibt im Profil.<br/>
-Ein neben der Datei genanntes Zertifikat wird unter diesem Namen kopiert.<br/>
+Ein neben der Datei genanntes Zertifikat wird unter diesem Namen kopiert.
+
 `up`- und `down`-Skripte des Anbieters werden nicht kopiert.<br/>
 Der DNS des Anbieters wird nicht benutzt. Unbound bleibt der Resolver.<br/>
 Das erste `remote` ist der Server, der geöffnet wird.
